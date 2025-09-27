@@ -1,0 +1,10 @@
+model Company {
+    id Int @id @default(autoincrement())
+    companyName String @db.VarChar(255)
+    siret String @db.VarChar(255)
+    password String @db.VarChar(255)
+    directorName String? @db.VarChar(255)
+    employees Employee[]
+    computers Computer[]
+
+}

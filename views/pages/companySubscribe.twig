@@ -1,0 +1,42 @@
+{% extends "/layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/companySubscription.css">
+{% endblock %}
+
+{% block main %}
+<main>
+    <section>
+        <div>
+            <h2>Formulaire d'inscription Entreprise</h2>
+        </div>
+        <div>
+            <form action="/subscribeCompany" method="post">
+                <div>
+                     <label for="raisonSociale">Raison Sociale</label>
+                     <input type="text" name="raisonSociale" id="raisonSociale" required>
+                </div>
+                <div>
+                    <label for="siret">N° Siret</label>
+                    <input type="text" name="siret" id="siret" required pattern="^\d{3}\s?\d{3}\s?\d{3}\s?\d{5}$" placeholder="123 456 789 01234">
+                </div>
+                <div>
+                    <label for="directorName">Nom du directeur</label>
+                    <input type="text" name="directorNam" id="directorNam">
+                </div>
+                <div>
+                    <label for="password">Votre mot de passe</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <div>
+                    <label for="confirmPassword">Confirmez votre mot de passe</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword">
+                </div>
+                <div>
+                    <button type="submit">Inscrivez-vous</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}
