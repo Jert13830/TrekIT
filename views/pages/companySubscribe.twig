@@ -8,17 +8,23 @@
 <main>
     <section>
         <div>
-            <h2>Formulaire d'inscription Entreprise</h2>
+            <h2>{{ title }}</h2>
         </div>
         <div>
             <form action="/subscribeCompany" method="post">
                 <div>
                      <label for="raisonSociale">Raison Sociale</label>
                      <input type="text" name="raisonSociale" id="raisonSociale" required>
+                    {% if error %}
+                        {{error.companyName}}
+                    {% endif %}
                 </div>
                 <div>
                     <label for="siret">N° Siret</label>
                     <input type="text" name="siret" id="siret" required pattern="^\d{3}\s?\d{3}\s?\d{3}\s?\d{5}$" placeholder="123 456 789 01234">
+                    {% if error %}
+                        {{error.siret}}
+                    {% endif %}
                 </div>
                 <div>
                     <label for="directorName">Nom du directeur</label>
@@ -31,6 +37,9 @@
                 <div>
                     <label for="confirmPassword">Confirmez votre mot de passe</label>
                     <input type="password" name="confirmPassword" id="confirmPassword">
+                    {% if error %}
+                        {{error.confirmPassword}}
+                    {% endif %}
                 </div>
                 <div>
                     <button type="submit">Inscrivez-vous</button>
