@@ -3,6 +3,8 @@ const companyRouter =require ("./router/companyRouter");
 
 const port = 3000;
 const app = express();
+
+app.use(express.static("./public"));
 app.use(companyRouter);
 
 app.listen(port,()=>{
