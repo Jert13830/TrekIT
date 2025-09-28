@@ -9,69 +9,11 @@
   <section>
    
     <div>
-      <form id="companySubscribeForm" action="/companySubscribe" method="post">
        
        <div>
-            <img id="trekitLogo" src="/assets/images/trekitWithoutText.png" alt="TrekIT logo">
-       </div>
-       
-       <div id="formTitle">
             <h2>{{ title }}</h2>
         </div>
-        <div class="companySubscribeFormInput">
-          <label for="companyName">Raison Sociale</label>
-          <input type="text" name="companyName" id="companyName" value="{{ companyName | default('') }}" required>
-          {% if error.companyName %}
-            <p class="error">{{ error.companyName }}</p>
-          {% endif %}
-        </div>
-        <div class="companySubscribeFormInput">
-          <label for="siret">N° Siret</label>
-          <input
-            type="text"
-            name="siret"
-            id="siret"
-            required
-            pattern="\d{3}\s?\d{3}\s?\d{3}\s?\d{5}"
-            placeholder="123 456 789 01234"
-            value="{{ siret | default('') }}"
-          >
-          {% if error.siret %}
-            <p class="error">{{ error.siret }}</p>
-          {% endif %}
-          {% if duplicateSiret %}
-            <p class="error">{{ duplicateSiret }}</p>
-          {% endif %}
-        </div>
-        <div class="companySubscribeFormInput">
-          <label for="directorName">Nom du directeur</label>
-          <input type="text" name="directorName" id="directorName" value="{{ directorName | default('') }}">
-        </div>
-        <div class="companySubscribeFormInput">
-          <label for="password">Votre mot de passe</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            required
-            pattern="^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$"
-            placeholder="6+ caractères, 1 lettre, 1 chiffre"
-          >
-        </div>
-        <div class="companySubscribeFormInput">
-          <label for="confirmPassword">Confirmez votre mot de passe</label>
-          <input type="password" name="confirmPassword" id="confirmPassword" value="{{ confirmPassword | default('') }}" required>
-          {% if error.confirmPassword %}
-            <p class="error">{{ error.confirmPassword }}</p>
-          {% endif %}
-        </div>
-        <div>
-          <button type="submit" id="companySubmit" name="companySubmit">Connecter</button>
-        </div>
-        <div>
-          <p id="connectP">Vous êtes déjà inscrit, <a id="connectA" href="/login">connectez-vous</a></p>
-        </div>
-      </form>
+        
     </div>
   </section>
 </main>

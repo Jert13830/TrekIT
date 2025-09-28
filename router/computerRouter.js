@@ -1,6 +1,7 @@
 const computerRouter = require("express").Router();
 const computerController = require("../controllers/computerController");
-const authGuard = require("../middleware/services/authguard")
+
+const authGuard = require("../middleware/services/authguard");
 
 
 computerRouter.get('/addComputer', authGuard, computerController.displayAddComputer);

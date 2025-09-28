@@ -1,8 +1,6 @@
-// controllers/companyController.js
 const { PrismaClient } = require("../generated/prisma/client");
-const hashExtension = require("../middleware/extensions/companyHashPassword");
 const validateCompany = require("../middleware/extensions/validateCompany");
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient().$extends(validateCompany).$extends(hashExtension);
 
@@ -113,18 +111,3 @@ exports.login = async (req,res)=>{
         })
     }
 }
-
-// controllers/companyController.js
-exports.dashboard = async (req, res) => {
-    try {
-        // Assuming the company is stored in req.session.company by authGuard
-        const company = req.session.company;
-        res.render('pages/dashboard.twig', {
-            title: 'Tableau de bord',
-            company: company, // Pass company data to the template
-        });
-    } catch (error) {
-        console.error('Dashboard error:', error);
-        res.redirect('/login'); // Redirect to login on error
-    }
-};

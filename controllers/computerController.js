@@ -1,7 +1,7 @@
 const { PrismaClient } = require("../generated/prisma/client")
 const prisma = new PrismaClient()
 
-exports.displayAddcomputer = (req, res) => {
+exports.displayAddComputer = (req, res) => {
     res.render("pages/addComputer.twig",{
         company : req.session.company
     })
