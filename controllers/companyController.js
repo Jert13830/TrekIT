@@ -6,6 +6,10 @@ const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient().$extends(validateCompany).$extends(hashExtension);
 
+// Importation de bcrypt pour le hash et la comparaison des mots de passe
+const bcrypt = require('bcrypt')
+
+
 exports.displayRegister = async (req, res) => {
   res.render('pages/companySubscribe.twig', {
     title: "Inscription - Entreprise",
@@ -76,3 +80,36 @@ exports.postCompany = async (req, res) => {
     }
   }
 };
+
+exports.login = async (req,res)=>{
+    try {
+        // research the company by its Siret number 
+        const company = await prisma.company.findUnique({
+            where: {
+                siret: req.body.siret
+            }
+        })
+        if (company) {
+            // if the company exists we check the password against the hashed password
+            if (bcrypt.compareSync(req.body.password,company.password)) {
+                // If the password is correct the company is stocked in the session
+                req.session.company = company
+                // Send to the Dashboard
+                res.redirect('/dashboard',{
+                  title: "Tableau de bord"
+                })
+            } else {
+                // if the password is incorrect show an error
+                throw {password: "mauvais mot de passe"}
+            }
+        } else {
+            // If the company does not exist
+            throw {siret: "Cette société n'est pas enregistrée"}
+        }
+    } catch (error) {
+        // Show the errors in the login
+        res.render("pages/login.twig", {
+            error:error
+        })
+    }
+}
