@@ -15,6 +15,7 @@ app.use(session({
 
 
 app.use(companyRouter);
+app.use(computerRoute);
 
 app.listen(port,()=>{
     console.log("Ecoute sur la port 3000");
