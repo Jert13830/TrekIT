@@ -14,6 +14,7 @@
     "@prisma/client": "^6.16.2",
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "twig": "^1.17.1"
   },
   "prisma": {
