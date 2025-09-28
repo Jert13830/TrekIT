@@ -8,7 +8,7 @@ companyRouter.post('/companySubscribe', companyController.postCompany);
 companyRouter.get('/login',companyController.displayLogin);
 companyRouter.post('/login', companyController.login);
 
-companyRouter.get('/dashboard', authGuard, companyController.dashboard);
+companyRouter.get('/dashboard', authGuard, companyController.displayDashboard);
 module.exports = companyRouter;
 
 

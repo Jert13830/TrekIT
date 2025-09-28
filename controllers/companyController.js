@@ -110,12 +110,14 @@ exports.login = async (req,res)=>{
         // Show the errors in the login
         res.render("pages/login.twig", {
             error:error
+            
         })
+        
     }
 }
 
 // controllers/companyController.js
-exports.dashboard = async (req, res) => {
+exports.displayDashboard = async (req, res) => {
     try {
         // Assuming the company is stored in req.session.company by authGuard
         const company = req.session.company;
