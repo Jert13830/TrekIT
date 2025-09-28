@@ -20,6 +20,7 @@ header {
 #headrDiv{
     display: flex;
     align-items: center;
+    gap:10px;
 }
 
 /* Hamburger styling */
@@ -72,9 +73,6 @@ nav ul li a {
   color: #333;
   padding: 0.5rem;
 
-}
-#navLink,#navbar,#navLink li{
-   
 }
 
 #navbar {
@@ -142,7 +140,7 @@ nav ul li a:hover{
 }
 
 /* Responsive (mobile) */
-@media (max-width: 768px) {
+@media (max-width: 920px) {
   .hamburger {
     display: flex;
   }
@@ -175,11 +173,11 @@ nav ul li a {
   }
 
     nav ul li a {
-        color: #40513B;
+      color: #f9fafb;
     }
 
      nav ul li a:hover {
-        color: #EDF1D6;
+        color: #22c55e;
     }
   nav.active {
     right: 0; /* slide in */
@@ -187,14 +185,14 @@ nav ul li a {
 
   /* Dropdown */
 #servicesList {
-  background: #EDF1D6;
+  background: #f9fafb;
 }
 
 #servicesList li a {
   
-  background: #EDF1D6;
+  background: #f9fafb;
 }
 #servicesList li a:hover {
-  color:  #609966;
+  color:  #22c55e;
 }
 }
