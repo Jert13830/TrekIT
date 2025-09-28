@@ -7,19 +7,25 @@
 {% block main %}
 <main>
   <section>
+   
     <div>
-      <h2>{{ title }}</h2>
-    </div>
-    <div>
-      <form action="/companySubscribe" method="post">
-        <div>
+      <form id="companySubscribeForm" action="/companySubscribe" method="post">
+       
+       <div>
+            <img id="trekitLogo" src="/assets/images/trekitWithoutText.png" alt="TrekIT logo">
+       </div>
+       
+       <div id="formTitle">
+            <h2>{{ title }}</h2>
+        </div>
+        <div class="companySubscribeFormInput">
           <label for="companyName">Raison Sociale</label>
           <input type="text" name="companyName" id="companyName" value="{{ companyName | default('') }}" required>
           {% if error.companyName %}
             <p class="error">{{ error.companyName }}</p>
           {% endif %}
         </div>
-        <div>
+        <div class="companySubscribeFormInput">
           <label for="siret">N° Siret</label>
           <input
             type="text"
@@ -37,11 +43,11 @@
             <p class="error">{{ duplicateSiret }}</p>
           {% endif %}
         </div>
-        <div>
+        <div class="companySubscribeFormInput">
           <label for="directorName">Nom du directeur</label>
           <input type="text" name="directorName" id="directorName" value="{{ directorName | default('') }}">
         </div>
-        <div>
+        <div class="companySubscribeFormInput">
           <label for="password">Votre mot de passe</label>
           <input
             type="password"
@@ -52,7 +58,7 @@
             placeholder="6+ caractères, 1 lettre, 1 chiffre"
           >
         </div>
-        <div>
+        <div class="companySubscribeFormInput">
           <label for="confirmPassword">Confirmez votre mot de passe</label>
           <input type="password" name="confirmPassword" id="confirmPassword" value="{{ confirmPassword | default('') }}" required>
           {% if error.confirmPassword %}
@@ -60,7 +66,10 @@
           {% endif %}
         </div>
         <div>
-          <button type="submit">Inscrivez-vous</button>
+          <button type="submit" id="companySubmit" name="companySubmit">Connecter</button>
+        </div>
+        <div>
+          <p id="connectP">Vous êtes déjà inscrit, <a id="connectA" href="/login">connectez-vous</a></p>
         </div>
       </form>
     </div>

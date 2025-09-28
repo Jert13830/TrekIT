@@ -17,6 +17,16 @@ exports.displayRegister = async (req, res) => {
   });
 };
 
+// Affiche la page de connexion
+exports.displayLogin = async (req,res)=>{
+    res.render("pages/login.twig", {
+    title: "Connexion - Entreprise",
+    error: null,
+    duplicateSiret: null,
+    confirmPassword: null
+  })
+}
+
 exports.postCompany = async (req, res) => {
   try {
     // Verify passwords match

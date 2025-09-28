@@ -1,19 +1,43 @@
+ {% block style %}
+        <link rel="stylesheet" href="/assets/css/header.css">
+    {% endblock %}
+
 <header>
-    <h1>TrekIT</h1>
-    <nav>
-        <ul>
-                <li>
-                    <a href="addBook">Ajouter un pc</a>
-                </li>
-                <li>
-                    <a href="/logout">Deconexion</a>
-                </li>
-                <li>
-                    <a href="/register">Inscription</a>
-                </li>
-                <li>
-                    <a href="/login">Connexion</a>
-                </li>
-        </ul>
-    </nav>
+    <div id="headrDiv">
+        <div id="headerLogo">
+            <img id="icon" src="/assets/images/trekitScreen.png" alt="">
+            <h1>TrekIT</h1>
+        </div>
+        <div id="navDiv">
+            <nav>
+                <ul id="menuLine">
+                    <li>
+                        <a href="/home">🏠 Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/addComputer">💻 Assets</a>
+                    </li>
+                    <li>
+                        <a href="/employees">👥 Employees</a>
+                    </li>
+                    <li>
+                        <a href="/repairs">🛠 Repairs</a>
+                    </li>
+                    <li>
+                        <a href="/reports">📊 Reports</a>
+                    </li>
+                    <li>
+                        <a href="/settings">⚙️ Settings</a>
+                    </li>
+                    <li>
+                        <a href="#">Connexion ▾</a>
+                        <ul id="servicesList">
+                            <li><a href="/profile">Profile</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </header>

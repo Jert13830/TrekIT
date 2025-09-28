@@ -3,14 +3,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     background-color: #f0f0f0;
-    
+    flex-direction: column;
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     }
 
-#companySubscribeForm {
+#loginForm {
     background-color: #F9FAFB;
     padding: 20px;
     border-radius: 8px;
@@ -30,20 +29,20 @@ body {
     min-width: 30%;
 }
 
-.companySubscribeFormInput {
+.loginFormInput {
     display: flex;
     flex-direction: column;
     align-items: stretch; 
 }
 
-.companySubscribeFormInput label {
+.loginFormInput label {
     min-width: max-content; 
     margin-bottom: 5px;
     font-weight: bold;
     color: #4b5563;
 }
 
-.companySubscribeFormInput input {
+.loginFormInput input {
     box-sizing: border-box;
     width: 100%; 
     height: 2rem;
@@ -52,7 +51,7 @@ body {
     border: 1px solid #d7dcdf;
 }
 
-#companySubmit{
+#loginSubmit{
     width:100%;
     height: 2rem;
     color:#F9FAFB;
@@ -82,7 +81,7 @@ body {
 
 
 @media (width <= 520px) {
-  .companySubscribeFormInput label {
+  .loginFormInput label {
     font-size: 0.75rem;
   }
 

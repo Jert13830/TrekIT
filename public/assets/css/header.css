@@ -1,0 +1,200 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: #40513B; 
+  position: relative;
+  z-index: 10;
+}
+
+#icon {
+  max-width: 90px;
+  height: auto;
+}
+
+#headerLogo{
+    display: flex;
+}
+
+#headrDiv{
+    display: flex;
+    align-items: center;
+}
+
+/* Hamburger styling */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 20;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger animation */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* Nav default (desktop) */
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  padding: 0.5rem;
+
+}
+#navLink,#navbar,#navLink li{
+   
+}
+
+#navbar {
+  width: auto;        
+  background: transparent; 
+}
+
+/* Dropdown */
+#servicesList {
+  display :flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #f9fafb;
+  list-style: none;
+  padding: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+  /* start hidden */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  z-index: 5;
+}
+
+#servicesList li a {
+  color: #4b5563; 
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 1rem;
+  
+  background: #f9fafb;
+}
+
+/* Hover state (show with animation) */
+li:hover > #servicesList {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Hover styles */
+#servicesList li a:hover {
+  /*background: #40513B;*/
+  color: #ffffff;
+}
+
+nav ul li a {
+  color: #40513B;
+}
+
+nav ul li a:hover{
+  color: #2563eb;
+}
+
+#servicesList li a:hover {
+  color:  #2563eb;
+}
+
+#menuLine{
+    align-items: first baseline;
+}
+
+/* Responsive (mobile) */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+nav ul li a {
+  background-color: #2563eb;
+}
+#navLink,#navbar,#navLink li{
+    background-color: #2563eB;
+}
+
+
+  nav {
+    position: fixed; /* overlay instead of pushing header */
+    top: 0;
+    right: -100%; /* hidden off screen */
+    height: 100%;
+    width: 70%;
+    background: #609966;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.3s ease;
+    z-index: 15;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+    nav ul li a {
+        color: #40513B;
+    }
+
+     nav ul li a:hover {
+        color: #EDF1D6;
+    }
+  nav.active {
+    right: 0; /* slide in */
+  }
+
+  /* Dropdown */
+#servicesList {
+  background: #EDF1D6;
+}
+
+#servicesList li a {
+  
+  background: #EDF1D6;
+}
+#servicesList li a:hover {
+  color:  #609966;
+}
+}
