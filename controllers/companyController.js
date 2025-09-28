@@ -1,4 +1,7 @@
-const prisma = require("../middleware/prismaClient");
+
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 const validateCompany = require("../middleware/extensions/validateCompany")
 //const prisma = new PrismaClient().$extends(validateCompany).$extends(hashExtension)
 const bcrypt = require('bcrypt');
@@ -12,11 +15,8 @@ exports.displayRegister = async (req,res)=>{
     )
 };
 
-
-//
 exports.postCompany = async (req,res)=>{
 try {
-
     if(req.body.password === req.body.confirmPassword){
         const company = await Prisma.company.create({
             data:{
