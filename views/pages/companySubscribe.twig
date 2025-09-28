@@ -14,7 +14,7 @@
             <form action="/companySubscribe" method="post">
                 <div>
                      <label for="raisonSociale">Raison Sociale</label>
-                     <input type="text" name="raisonSociale" id="raisonSociale" required>
+                     <input type="text" name="companyName" id="companyName" required>
                     {% if error %}
                         {{error.companyName}}
                     {% endif %}
@@ -25,6 +25,9 @@
                     {% if error %}
                         {{error.siret}}
                     {% endif %}
+					{% if duplicateSiret %}
+						<p>{{duplicateSiret}}</p>
+					{% endif %}
                 </div>
                 <div>
                     <label for="directorName">Nom du directeur</label>
@@ -32,7 +35,7 @@
                 </div>
                 <div>
                     <label for="password">Votre mot de passe</label>
-                    <input type="password" name="password" id="password">
+                    <input type="password" name="password" id="password" pattern="^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$" placeholder="6+ caractères 1 lettre" >
                 </div>
                 <div>
                     <label for="confirmPassword">Confirmez votre mot de passe</label>

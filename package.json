@@ -11,15 +11,12 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@prisma/client": "^6.16.2",
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
     "twig": "^1.17.1"
   },
   "prisma": {
     "schema": "./prisma"
-  },
-  "devDependencies": {
-    "@prisma/client": "^6.16.2",
-    "prisma": "^6.16.2"
   }
 }

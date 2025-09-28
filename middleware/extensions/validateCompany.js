@@ -16,8 +16,8 @@ module.exports = Prisma.defineExtension({
                     errors.companyName = "Nom de l'entreprise non valide";
                }
 
-                if(!/^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$/.test(args.data.password)){
-                    errors.password = "Password invalide it must contain more than 8 characters";
+               if(!/^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$/.test(args.data.password)){
+                    errors.password = "6 caractères minimum, comprenant au moins une lettre (A-Za-z)";
                }
 
               if (Object.keys(errors).length > 0 ){
