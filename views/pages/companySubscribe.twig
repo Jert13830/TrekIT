@@ -1,54 +1,69 @@
 {% extends "/layouts/base.twig" %}
 
 {% block style %}
-	<link rel="stylesheet" href="/assets/css/companySubscribe.css">
+  <link rel="stylesheet" href="/assets/css/companySubscribe.css">
 {% endblock %}
 
 {% block main %}
 <main>
-    <section>
+  <section>
+    <div>
+      <h2>{{ title }}</h2>
+    </div>
+    <div>
+      <form action="/companySubscribe" method="post">
         <div>
-            <h2>{{ title }}</h2>
+          <label for="companyName">Raison Sociale</label>
+          <input type="text" name="companyName" id="companyName" value="{{ companyName | default('') }}" required>
+          {% if error.companyName %}
+            <p class="error">{{ error.companyName }}</p>
+          {% endif %}
         </div>
         <div>
-            <form action="/companySubscribe" method="post">
-                <div>
-                     <label for="raisonSociale">Raison Sociale</label>
-                     <input type="text" name="companyName" id="companyName" required>
-                    {% if error %}
-                        {{error.companyName}}
-                    {% endif %}
-                </div>
-                <div>
-                    <label for="siret">N° Siret</label>
-                    <input type="text" name="siret" id="siret" required pattern="^\d{3}\s?\d{3}\s?\d{3}\s?\d{5}$" placeholder="123 456 789 01234">
-                    {% if error %}
-                        {{error.siret}}
-                    {% endif %}
-					{% if duplicateSiret %}
-						<p>{{duplicateSiret}}</p>
-					{% endif %}
-                </div>
-                <div>
-                    <label for="directorName">Nom du directeur</label>
-                    <input type="text" name="directorNam" id="directorNam">
-                </div>
-                <div>
-                    <label for="password">Votre mot de passe</label>
-                    <input type="password" name="password" id="password" pattern="^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$" placeholder="6+ caractères 1 lettre" >
-                </div>
-                <div>
-                    <label for="confirmPassword">Confirmez votre mot de passe</label>
-                    <input type="password" name="confirmPassword" id="confirmPassword">
-                    {% if error %}
-                        {{error.confirmPassword}}
-                    {% endif %}
-                </div>
-                <div>
-                    <button type="submit">Inscrivez-vous</button>
-                </div>
-            </form>
+          <label for="siret">N° Siret</label>
+          <input
+            type="text"
+            name="siret"
+            id="siret"
+            required
+            pattern="\d{3}\s?\d{3}\s?\d{3}\s?\d{5}"
+            placeholder="123 456 789 01234"
+            value="{{ siret | default('') }}"
+          >
+          {% if error.siret %}
+            <p class="error">{{ error.siret }}</p>
+          {% endif %}
+          {% if duplicateSiret %}
+            <p class="error">{{ duplicateSiret }}</p>
+          {% endif %}
         </div>
-    </section>
+        <div>
+          <label for="directorName">Nom du directeur</label>
+          <input type="text" name="directorName" id="directorName" value="{{ directorName | default('') }}">
+        </div>
+        <div>
+          <label for="password">Votre mot de passe</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+            pattern="^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$"
+            placeholder="6+ caractères, 1 lettre, 1 chiffre"
+          >
+        </div>
+        <div>
+          <label for="confirmPassword">Confirmez votre mot de passe</label>
+          <input type="password" name="confirmPassword" id="confirmPassword" value="{{ confirmPassword | default('') }}" required>
+          {% if error.confirmPassword %}
+            <p class="error">{{ error.confirmPassword }}</p>
+          {% endif %}
+        </div>
+        <div>
+          <button type="submit">Inscrivez-vous</button>
+        </div>
+      </form>
+    </div>
+  </section>
 </main>
 {% endblock %}
