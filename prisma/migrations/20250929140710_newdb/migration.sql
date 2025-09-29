@@ -2,10 +2,11 @@
 CREATE TABLE `Company` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `companyName` VARCHAR(255) NOT NULL,
-    `siret` VARCHAR(255) NOT NULL,
+    `siret` VARCHAR(14) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `directorName` VARCHAR(255) NULL,
 
+    UNIQUE INDEX `Company_siret_key`(`siret`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -14,6 +15,8 @@ CREATE TABLE `Computer` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `computerTitle` VARCHAR(255) NOT NULL,
     `addressMac` VARCHAR(255) NOT NULL,
+    `purchaseDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `status` VARCHAR(10) NOT NULL,
     `companyId` INTEGER NOT NULL,
     `employeeId` INTEGER NULL,
 

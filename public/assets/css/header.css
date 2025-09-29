@@ -146,24 +146,25 @@ nav ul li a:hover{
   }
 
 nav ul li a {
-  background-color: #2563eb;
+  background-color: #d9d7d7;
 }
 #navLink,#navbar,#navLink li{
-    background-color: #2563eB;
+    background-color: #d9d7d7;
 }
 
 
   nav {
-    position: fixed; /* overlay instead of pushing header */
-    top: 0;
-    right: -100%; /* hidden off screen */
-    height: 100%;
-    width: 70%;
-    background: #609966;
+    position: fixed; 
+    bottom: 25%;
+    right: -100%; 
+    height: 50%;
+    width: 5%;
+    background: #d9d7d7;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: right 0.3s ease;
+    border-radius: 10px;
     z-index: 15;
   }
 
@@ -173,11 +174,11 @@ nav ul li a {
   }
 
     nav ul li a {
-      color: #f9fafb;
+      color: #4b5563;
     }
 
      nav ul li a:hover {
-        color: #22c55e;
+        color: #2563eb;
     }
   nav.active {
     right: 0; /* slide in */
@@ -185,14 +186,14 @@ nav ul li a {
 
   /* Dropdown */
 #servicesList {
-  background: #f9fafb;
+  background: #f0f0f0;
 }
 
 #servicesList li a {
   
-  background: #f9fafb;
+  background: #f0f0f0;
 }
 #servicesList li a:hover {
-  color:  #22c55e;
+  color:  #2563eb;
 }
 }

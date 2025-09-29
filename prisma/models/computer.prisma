@@ -2,6 +2,8 @@ model Computer {
   id            Int      @id @default(autoincrement())
   computerTitle String   @db.VarChar(255)
   addressMac    String   @db.VarChar(255)
+  purchaseDate DateTime @default(now())
+  status String @db.VarChar(10)
   company   Company @relation(fields: [companyId], references: [id])
   companyId Int
   employee   Employee? @relation(fields: [employeeId], references: [id])

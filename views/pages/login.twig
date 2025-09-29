@@ -12,7 +12,7 @@
       <form id="loginForm" action="/login" method="post">
        
        <div>
-            <img id="trekitLogo" src="/assets/images/trekitWithoutText.png" alt="TrekIT logo">
+            <img id="trekitLogo" src="/assets/images/trekitWithText.png" alt="TrekIT logo">
        </div>
        
        <div id="formTitle">
@@ -29,12 +29,15 @@
             placeholder="123 456 789 01234"
             value="{{ siret | default('') }}"
           >
-          {% if error.siret %}
-            <p class="error">{{ error.siret }}</p>
-          {% endif %}
           {% if duplicateSiret %}
             <p class="error">{{ duplicateSiret }}</p>
           {% endif %}
+        </div>
+
+        <div>
+          <p>Error time: </p>
+           <p class="error">{{error}}</p>
+
         </div>
 
         <div class="loginFormInput">

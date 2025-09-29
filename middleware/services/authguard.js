@@ -28,6 +28,7 @@ const authguard = async (req, res, next) => {
     } catch (error) {
         // If there is an error the user is sent to the Login page
         res.redirect('/login')
+        
     }
 }
 

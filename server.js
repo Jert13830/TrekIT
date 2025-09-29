@@ -10,7 +10,7 @@ app.use(express.static("./public"));
 app.use(express.urlencoded({extended: true}));
 
 app.use(session({
-    secret: 'votre_secret_key',
+    secret: 'keep_your_nose_out_of_my_business',
     resave: true,
     saveUninitialized: true,
 }));
