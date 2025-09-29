@@ -2,6 +2,7 @@ const express = require("express");
 const session = require('express-session');
 const companyRouter =require ("./router/companyRouter");
 const computerRouter = require ("./router/computerRouter");
+const employeeRouter = require("./router/employeeRouter");
 
 const port = 3000;
 const app = express();
@@ -18,6 +19,7 @@ app.use(session({
 
 app.use(companyRouter);
 app.use(computerRouter);
+app.use(employeeRouter);
 
 
 app.listen(port,()=>{

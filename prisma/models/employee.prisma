@@ -4,7 +4,7 @@ model Employee {
   lastName  String  @db.VarChar(255)
   email     String  @unique @db.VarChar(255)
   password  String  @db.VarChar(255)
-  age       Int?
+  dob       DateTime?
   gender    String? @db.VarChar(10)
   company   Company @relation(fields: [companyId], references: [id])
   companyId Int

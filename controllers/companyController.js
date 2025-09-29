@@ -1,7 +1,7 @@
 // controllers/companyController.js
 const { PrismaClient } = require("../generated/prisma/client");
-const hashExtension = require("../middleware/extensions/companyHashPassword");
-const validateCompany = require("../middleware/extensions/validateCompany");
+const hashExtension = require("../middleware/extensions/hashPassword");
+const validateCompany = require("../middleware/extensions/validateEmployeeCompany");
 
 const prisma = new PrismaClient().$extends(validateCompany).$extends(hashExtension);
 

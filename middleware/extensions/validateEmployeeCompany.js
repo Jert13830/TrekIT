@@ -2,9 +2,9 @@ const {Prisma} = require('@prisma/client');
 const bcrypt = require('bcrypt');
 
 module.exports = Prisma.defineExtension({
-    name: "comapnyValidateExtension",
+    name: "employeeCompanyValidateExtension",
     query: {
-        company: {
+        $allModels: {
             create : async ({args,query})=>{
                const errors = {};
 
@@ -19,6 +19,18 @@ module.exports = Prisma.defineExtension({
                if(!/^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$/.test(args.data.password)){
                     errors.password = "6 caractères minimum, comprenant au moins une lettre (A-Za-z)";
                }
+
+               if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(args.data.mail)) {
+                    errors.mail = "Email invalide"
+                }
+
+                if (!/^[a-zA-ZÀ-ÿ' -]{2,30}$/.test(args.data.firstName)) {
+                    errors.firstName = "Prenom invalide (pas de chiffre ni caractere speciaux)"
+                }
+
+                if (!/^[a-zA-ZÀ-ÿ' -]{2,30}$/.test(args.data.firstName)) {
+                    errors.lastName = "Nom invalide (pas de chiffre ni caractere speciaux)"
+                }
 
               if (Object.keys(errors).length > 0 ){
                 const error = new Error("Validation error");
