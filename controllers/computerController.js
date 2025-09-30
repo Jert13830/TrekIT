@@ -23,6 +23,7 @@ exports.postComputer = async (req, res) => {
                 companyId: req.session.company?.id,
             }
         })
+
         res.redirect("/computers")
     } catch (error) {
 

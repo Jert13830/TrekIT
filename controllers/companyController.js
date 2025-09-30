@@ -139,8 +139,14 @@ exports.displayDashboard = async (req, res) => {
 
 exports.displayEmployees = async (req, res) => {
     try {
-        const company = req.session.company;
-        res.render('pages/listEmployees.twig', {
+       // const company = req.session.company;
+        
+       const company = await prisma.company.findUnique({
+             where: { id: req.session.company.id },
+             include: { employees: true, computers: true },
+        });
+       
+       res.render('pages/listEmployees.twig', {
             title: 'Liste des employés',
             company: company, // Pass company data to the template
         });
@@ -152,7 +158,13 @@ exports.displayEmployees = async (req, res) => {
 
 exports.displayComputers = async (req, res) => {
     try {
-        const company = req.session.company;
+        //const company = req.session.company;
+
+        const company = await prisma.company.findUnique({
+             where: { id: req.session.company.id },
+             include: { employees: true, computers: true },
+        });
+
         res.render('pages/listComputers.twig', {
             title: 'Liste des ordinateurs',
             company: company, // Pass company data to the template
