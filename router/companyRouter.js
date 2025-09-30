@@ -11,6 +11,7 @@ companyRouter.get("/logout", companyController.logout);
 
 companyRouter.get('/dashboard', authGuard, companyController.displayDashboard);
 companyRouter.get('/employees',authGuard, companyController.displayEmployees);
+companyRouter.get('/computers',authGuard, companyController.displayComputers);
 
 module.exports = companyRouter;
 

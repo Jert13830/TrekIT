@@ -21,8 +21,10 @@
                 {{employee.firstName}}</h3>
               <p>Nom :
                 {{employee.lastName}}</p>
-              <a href="/updatebook/{{employee.id}}">Modifier</a>
-              <a href="/removebook/{{employee.id}}">Supprimer</a>
+              <p>Ordinateur :
+                {{employee.computer.computerId}}</p>
+              <a href="/updateEmployee/{{employee.id}}">Modifier</a>
+              <a href="/removeEmployee/{{employee.id}}">Supprimer</a>
             </article>
           {% endfor %}
         </div>

@@ -8,6 +8,12 @@ module.exports = Prisma.defineExtension({
             create : async ({args,query})=>{
                const errors = {};
 
+               if (args.model === "computer"){
+                if(!/^(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})$/.test(args.data.addressMac)){
+                        errors.addressMac = "Adresse MAC invalide";
+                     }
+                }
+
                if (args.model === "company"){
 
                     if(!/^\d{3}\s?\d{3}\s?\d{3}\s?\d{5}$/.test(args.data.siret)){
@@ -35,11 +41,11 @@ module.exports = Prisma.defineExtension({
                     }
 
                }
-               
-               if(!/^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$/.test(args.data.password)){
-                    errors.password = "6 caractères minimum, comprenant au moins une lettre (A-Za-z)";
-               }
-
+               if (args.model === "user" || args.model === "company" ){
+                    if(!/^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$/.test(args.data.password)){
+                        errors.password = "6 caractères minimum, comprenant au moins une lettre (A-Za-z)";
+                    }
+               }        
                
 
               if (Object.keys(errors).length > 0 ){

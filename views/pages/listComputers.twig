@@ -14,15 +14,20 @@
             <h2>{{ title }} - {{company.companyName}}</h2>
         </div>
         <div>
-          
-          {% for employee in company.employees %}
+          {% for computer in company.computers %}
             <article>
-              <h3>Prenom :
-                {{employee.firstName}}</h3>
-              <p>Nom :
-                {{employee.lastName}}</p>
-              <a href="/updatebook/{{employee.id}}">Modifier</a>
-              <a href="/removebook/{{employee.id}}">Supprimer</a>
+              <h3>Computer :
+                {{computer.computerTitle}}</h3>
+              <p>Mac adresse :
+                {{computer.addressMac}}</p>
+                <p>Date d'achat :
+                {{computer.purchaseDate}}</p>
+                <p>Statut :
+                {{computer.status}}</p>
+                <p>Employé :
+                {{computer.employeeId}}</p>
+              <a href="/updateComputer/{{computer.id}}">Modifier</a>
+              <a href="/removeComputer/{{computer.id}}">Supprimer</a>
             </article>
           {% endfor %}
         </div>

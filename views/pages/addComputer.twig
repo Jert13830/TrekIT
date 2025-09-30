@@ -1,0 +1,58 @@
+{% extends "/layouts/base.twig" %}
+
+{% block style %}
+  <link rel="stylesheet" href="/assets/css/addComputer.css">
+{% endblock %}
+
+{% block main %}
+<main>
+  <section>
+   
+    <div>
+      <form id="computerForm" action="/addComputer" method="post">
+       
+       <div>
+            <img id="trekitLogo" src="/assets/images/trekitWithoutText.png" alt="TrekIT logo">
+       </div>
+       
+       <div id="formTitle">
+            <h2>{{ title }}</h2>
+        </div>
+        <div class="computerFormInput">
+          <label for="computerTitle">Ordinateur</label>
+          <input type="text" name="computerTitle" id="computerTitle" value="{{ computerTitle | default('') }}" required>
+          {% if error.computerTitle %}
+            <p class="error">{{ error.computerTitle }}</p>
+          {% endif %}
+        </div>
+         <div class="computerFormInput">
+            <label for="addressMac">Nom</label>
+            <input type="text" name="addressMac" id="addressMac" value="{{ addressMac | default('') }}" required placeholder="00:00:5e:00:53:af" pattern="^(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})$">
+            {% if error.addressMac %}
+              <p class="error">{{ error.addressMac }}</p>
+            {% endif %}
+            {% if duplicateMAC %}
+              <p class="error">{{ duplicateMAC }}</p>
+            {% endif %}
+        </div>
+        <div>
+          <label for="purchaseDate">Date d'achat</label>
+          <input type="date" name="purchaseDate" id="purchaseDate">
+        </div>
+        <div>
+          <label for="status">Statut</label>
+          <select name="status" id="status">
+            <option value="use">En usage</option>
+            <option value="repair">En réparation</option>
+            <option value="available">Disponible</option>
+            <option value="archived">Retiré</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit" id="addComputerSubmit" name="addComputerSubmit">Register</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+{% endblock %}

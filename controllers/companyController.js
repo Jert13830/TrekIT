@@ -150,6 +150,19 @@ exports.displayEmployees = async (req, res) => {
     }
 };
 
+exports.displayComputers = async (req, res) => {
+    try {
+        const company = req.session.company;
+        res.render('pages/listComputers.twig', {
+            title: 'Liste des ordinateurs',
+            company: company, // Pass company data to the template
+        });
+    } catch (error) {
+        console.error('Liste des ordinateurs error:', error);
+        res.redirect('/dashboard'); // Redirect to dashboard on error
+    }
+};
+
 // Déconnecte l'entreprise en détruisant la session et redirige vers la page de connexion
 exports.logout = async (req,res)=>{
     req.session.destroy()

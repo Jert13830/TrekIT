@@ -1,24 +1,43 @@
-const { PrismaClient } = require("../generated/prisma/client")
-const prisma = new PrismaClient()
+const { PrismaClient } = require("../generated/prisma/client");
+const validateComputer = require("../middleware/extensions/validateEmployeeCompany");
+const prisma = new PrismaClient().$extends(validateComputer);
 
 exports.displayAddComputer = (req, res) => {
     res.render("pages/addComputer.twig",{
-        company : req.session.company
+        company : req.session.company,
+        title: "Inscription - Ordinateur",
+        error: null,
     })
 }
 
-exports.addComputer = async (req, res) => {
+
+exports.postComputer = async (req, res) => {
+   
     try {
         const computer = await prisma.computer.create({
             data: {
-                title: req.body.title,
-                author: req.body.author,
-                userId: req.session.user.id
+                computerTitle: req.body.computerTitle,
+                addressMac: req.body.addressMac,
+                purchaseDate: req.body.purchaseDate ? new Date(req.body.purchaseDate) : null,
+                status: req.body.status,
+                companyId: req.session.company?.id,
             }
         })
-        res.redirect("/home")
+        res.redirect("/computers")
     } catch (error) {
-        res.render("pages/addComputer.twig")
+
+        if (error.code === 'P2002') {
+      // Unique constraint violation (duplicate MAC address)
+      return res.render('pages/addComputer.twig', {
+            title: "Inscription - Ordinateur",
+            error: null,
+            duplicateMAC: "MAC adresse déjà utilisé",
+            companyName: req.body.companyName,
+            });
+        } else{
+            console.log(error);
+            res.render("pages/addComputer.twig")
+        }
     }
 }
 
