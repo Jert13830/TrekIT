@@ -9,7 +9,7 @@
   <section>
    
     <div>
-      <form id="addEmployeeForm" action="/addEmployee" method="post">
+      <form id="employeeForm" action="/addEmployee" method="post">
        
        <div>
             <img id="trekitLogo" src="/assets/images/trekitWithoutText.png" alt="TrekIT logo">
@@ -18,36 +18,44 @@
        <div id="formTitle">
             <h2>{{ title }}</h2>
         </div>
-        <div class="companySubscribeFormInput">
-          <label for="companyName">Raison Sociale</label>
-          <input type="text" name="companyName" id="companyName" value="{{ companyName | default('') }}" required>
-          {% if error.companyName %}
-            <p class="error">{{ error.companyName }}</p>
+        <div class="employeeFormInput">
+          <label for="firstName">Prénom</label>
+          <input type="text" name="firstName" id="firstName" value="{{ firstName | default('') }}" required>
+          {% if error.firstName %}
+            <p class="error">{{ error.firstName }}</p>
           {% endif %}
         </div>
-        <div class="companySubscribeFormInput">
-          <label for="siret">N° Siret</label>
-          <input
-            type="text"
-            name="siret"
-            id="siret"
-            required
-            pattern="\d{3}\s?\d{3}\s?\d{3}\s?\d{5}"
-            placeholder="123 456 789 01234"
-            value="{{ siret | default('') }}"
-          >
-          {% if error.siret %}
-            <p class="error">{{ error.siret }}</p>
-          {% endif %}
-          {% if duplicateSiret %}
-            <p class="error">{{ duplicateSiret }}</p>
+         <div class="employeeFormInput">
+          <label for="lastName">Nom</label>
+          <input type="text" name="lastName" id="lastName" value="{{ lastName | default('') }}" required>
+          {% if error.lastName %}
+            <p class="error">{{ error.lastName }}</p>
           {% endif %}
         </div>
-        <div class="companySubscribeFormInput">
-          <label for="directorName">Nom du directeur</label>
-          <input type="text" name="directorName" id="directorName" value="{{ directorName | default('') }}">
+        <div>
+          <label for="dob">Date de Naissance</label>
+          <input type="date" name="dob" id="dob">
         </div>
-        <div class="companySubscribeFormInput">
+        <div>
+          <label for="gender">Genre</label>
+          <select name="gender" id="gender">
+            <option value="homme">Homme</option>
+            <option value="femme">Femme</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+        <div class="employeeFormInput">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email">
+					{% if errors.email %}
+						<p>{{errors.email}}</p>
+					{% endif %}
+					{% if duplicateEmail %}
+						<p>{{duplicateEmail}}</p>
+					{% endif %}
+
+				</div>
+        <div class="employeeFormInput">
           <label for="password">Votre mot de passe</label>
           <input
             type="password"
@@ -59,7 +67,7 @@
             autocomplete="current-password"
           >
         </div>
-        <div class="companySubscribeFormInput">
+        <div class="employeeFormInput">
           <label for="confirmPassword">Confirmez votre mot de passe</label>
           <input type="password" name="confirmPassword" id="confirmPassword" value="{{ confirmPassword | default('') }}" required>
           {% if error.confirmPassword %}
@@ -67,10 +75,7 @@
           {% endif %}
         </div>
         <div>
-          <button type="submit" id="companySubmit" name="companySubmit">Connecter</button>
-        </div>
-        <div>
-          <p id="connectP">Vous êtes déjà inscrit, <a id="connectA" href="/login">connectez-vous</a></p>
+          <button type="submit" id="addEmployeeSubmit" name="addEmployeeSubmit">Register</button>
         </div>
       </form>
     </div>

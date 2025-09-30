@@ -87,6 +87,10 @@ exports.login = async (req,res)=>{
         const company = await prisma.company.findUnique({
             where: {
                 siret: req.body.siret
+            },
+            include : {
+              employees : true,
+              computers: true
             }
         })
         
@@ -131,3 +135,23 @@ exports.displayDashboard = async (req, res) => {
         res.redirect('/login'); // Redirect to login on error
     }
 };
+
+
+exports.displayEmployees = async (req, res) => {
+    try {
+        const company = req.session.company;
+        res.render('pages/listEmployees.twig', {
+            title: 'Liste des employés',
+            company: company, // Pass company data to the template
+        });
+    } catch (error) {
+        console.error('Liste des employés error:', error);
+        res.redirect('/dashboard'); // Redirect to dashboard on error
+    }
+};
+
+// Déconnecte l'entreprise en détruisant la session et redirige vers la page de connexion
+exports.logout = async (req,res)=>{
+    req.session.destroy()
+    res.redirect('/login')
+}

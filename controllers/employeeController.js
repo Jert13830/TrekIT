@@ -13,9 +13,10 @@ exports.displayAddEmployee = async (req, res) => {
   res.render('pages/addEmployee.twig', {
     title: "Inscription - Employé",
     error: null,
-    duplicateSiret: null,
-    employeeName: null,
-    directorName: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    password:null,
     confirmPassword: null,
   });
 };
@@ -32,43 +33,36 @@ exports.displayEmployeeLogin = async (req,res)=>{
 
 exports.postEmployee = async (req, res) => {
   try {
-    // Verify passwords match
     if (req.body.password !== req.body.confirmPassword) {
-      const error = new Error("Mot de passe non correspondant");
-      error.confirmPassword = error.message; // Match template field name
-      throw error;
+      return res.render("pages/addEmployee.twig", {
+        confirmError: "Mot de passe non correspondant",
+      });
     }
 
-    // Create a new employee
     const employee = await prisma.employee.create({
       data: {
-          email: req.body.mail,
-          password: req.body.password,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          dob: req.body.dob || null,
-          gender: req.body.gender || null,
+        email: req.body.email,
+        password: req.body.password, 
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        dob: req.body.dob ? new Date(req.body.dob) : null,
+        gender: req.body.gender,
+        companyId: req.session.company?.id,
       },
     });
 
-    // Redirect to login on success
-    res.redirect('/employees');
-
+    res.redirect("/employees");
   } catch (error) {
-        // Gestion des erreurs lors de l'inscription
-        if (error.code == 'P2002') {
-            // Erreur d'unicité (email déjà utilisé)
-            res.render("pages/addEmployee.twig", {
-                duplicateEmail: "Email deja utilisé"
-            })
-        } else {
-            // Autres erreurs de validation ou de confirmation
-            res.render("pages/addEmployee.twig", {
-                errors: error.details,
-                confirmError: error.confirm ? error.confirm : null
-            })
-        }
+    if (error.code === "P2002") {
+      res.render("pages/addEmployee.twig", {
+        duplicateEmail: "Email déjà utilisé",
+      });
+    } else {
+      res.render("pages/addEmployee.twig", {
+        error: error.message || "Une erreur est survenue",
+      });
     }
+  }
 };
 
 exports.login = async (req,res)=>{
@@ -76,7 +70,7 @@ exports.login = async (req,res)=>{
         // Recherche l'utilisateur en base par son email
         const employee = await prisma.employee.findUnique({
             where: {
-                mail: req.body.mail
+                email: req.body.email
             }
         })
         if (employee) {
@@ -92,7 +86,7 @@ exports.login = async (req,res)=>{
             }
         } else {
             // Si l'utilisateur n'existe pas, on lève une erreur personnalisée
-            throw {mail: "Cet ustilisateur n'est pas enregistrer"}
+            throw {email: "Cet ustilisateur n'est pas enregistrer"}
         }
     } catch (error) {
         // Affiche les erreurs dans la vue login

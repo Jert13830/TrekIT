@@ -23,7 +23,7 @@ module.exports = Prisma.defineExtension({
                if (args.model === "user"){
 
                     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(args.data.email)) {
-                        errors.mail = "Email invalide"
+                        errors.email = "Email invalide"
                     }
 
                     if (!/^[a-zA-ZÀ-ÿ' -]{2,30}$/.test(args.data.firstName)) {

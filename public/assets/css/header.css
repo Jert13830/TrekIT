@@ -1,11 +1,16 @@
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   align-items: center;
   padding: 1rem;
   color: #40513B; 
   position: relative;
   z-index: 10;
+
+  width:100%;
+   position: fixed;
+  top: 0;
+  
 }
 
 #icon {
@@ -81,7 +86,7 @@ nav ul li a {
 }
 
 /* Dropdown */
-#servicesList {
+.servicesList {
   display :flex;
   flex-direction: column;
   position: absolute;
@@ -101,7 +106,7 @@ nav ul li a {
   z-index: 5;
 }
 
-#servicesList li a {
+.servicesList li a {
   color: #4b5563; 
   text-decoration: none;
   display: block;
@@ -111,7 +116,7 @@ nav ul li a {
 }
 
 /* Hover state (show with animation) */
-li:hover > #servicesList {
+li:hover > .servicesList {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -131,7 +136,7 @@ nav ul li a:hover{
   color: #2563eb;
 }
 
-#servicesList li a:hover {
+.servicesList li a:hover {
   color:  #2563eb;
 }
 
@@ -185,15 +190,15 @@ nav ul li a {
   }
 
   /* Dropdown */
-#servicesList {
+.servicesList {
   background: #f0f0f0;
 }
 
-#servicesList li a {
+.servicesList li a {
   
   background: #f0f0f0;
 }
-#servicesList li a:hover {
+.servicesList li a:hover {
   color:  #2563eb;
 }
 }
