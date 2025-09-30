@@ -1,32 +1,50 @@
 {% extends "/layouts/base.twig" %}
 
 {% block style %}
-  <link rel="stylesheet" href="/assets/css/companySubscribe.css">
+  <link rel="stylesheet" href="/assets/css/listEmployees.css">
 {% endblock %}
 
 {% block main %}
 <main>
   <section>
    
-    <div>
+    <div. id="topDiv">
        
        <div>
             <h2>{{ title }} - {{company.companyName}}</h2>
         </div>
-        <div>
-          
-          {% for employee in company.employees %}
-            <article>
-              <h3>Prenom :
-                {{employee.firstName}}</h3>
-              <p>Nom :
-                {{employee.lastName}}</p>
-              <p>Ordinateur :
-                {{employee.computer.computerId}}</p>
-              <a href="/updateEmployee/{{employee.id}}">Modifier</a>
-              <a href="/removeEmployee/{{employee.id}}">Supprimer</a>
-            </article>
-          {% endfor %}
+        <div id="employeeTable">
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>DdN</th>
+                    <th>Genre</th>
+                    <th>Ordinateur</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+                {% for employee in company.employees %}     
+                 <article>
+                    <tr class="employeeLine">
+                        <td>{{employee.id}}</td>
+                        <td>{{employee.lastName}}</td>
+                        <td>{{employee.firstName}}</td>
+                        <td>{{employee.email}}</td>
+                        <td>{{employee.dob|date("d/m/Y")}}</td>
+                        <td>{{employee.gender}}</td>
+                        <td>{{employee.computer.id}}</td>
+                        <td> 
+                            <form method="post">
+                                <button  class="btnForm" id='btnDelete' value={{employee.id}} name='buttons'>Delete</button>
+                                <button  class="btnForm" id='btnModify' value={{employee.id}} name='buttons'>Modify</button>
+                            </form> 
+                        </td>
+                    </tr>
+                    </article>
+             {% endfor %}
+            </table>
         </div>
     </div>
   </section>
