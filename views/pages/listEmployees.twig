@@ -36,10 +36,14 @@
                         <td>{{employee.gender}}</td>
                         <td>{{employee.computer.id}}</td>
                         <td> 
-                            <form method="post">
-                                <button  class="btnForm" id='btnDelete' value={{employee.id}} name='buttons'>Delete</button>
-                                <button  class="btnForm" id='btnModify' value={{employee.id}} name='buttons'>Modify</button>
-                            </form> 
+                            <form method="post" action="/employeeList">
+                              <button class="btnForm" id="btnDelete" name="buttons" value="delete-{{employee.id}}">
+                                Delete
+                              </button>
+                              <button class="btnForm" id="btnModify" name="buttons" value="modify-{{employee.id}}">
+                                Modify
+                              </button>
+                          </form>
                         </td>
                     </tr>
                     </article>

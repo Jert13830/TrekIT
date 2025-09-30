@@ -10,6 +10,37 @@ exports.displayAddComputer = (req, res) => {
     })
 }
 
+exports.treatComputerList = async (req, res) => {
+    const action = req.body.buttons; // "delete-123" or "modify-123"
+
+  if (action.startsWith("delete-")) {
+    let toDelete = action.split("-")[1];
+    toDelete = parseInt(toDelete );
+    // handle delete
+   
+    try {
+        const deleteComputer = await prisma.computer.delete({
+            where: {
+                id: toDelete
+            }
+        })
+        res.redirect("/computers")
+    } catch (error) {
+        console.log(error)
+        req.session.errorRequest = "Le ordinateur n'a pas pu etre supprimer"
+        res.redirect("/computers")
+
+    }
+
+
+
+  } else if (action.startsWith("modify-")) {
+    const id = action.split("-")[1];
+    // handle modify
+     console.log("Modify " + id);
+  }
+};
+
 
 exports.postComputer = async (req, res) => {
    

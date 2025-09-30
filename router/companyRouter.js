@@ -5,6 +5,7 @@ const authGuard = require("../middleware/services/authguard");
 
 companyRouter.get('/companySubscribe' , companyController.displayRegister);
 companyRouter.post('/companySubscribe', companyController.postCompany);
+
 companyRouter.get('/login',companyController.displayLogin);
 companyRouter.post('/login', companyController.login);
 companyRouter.get("/logout", companyController.logout);

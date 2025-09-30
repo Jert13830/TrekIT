@@ -9,6 +9,7 @@ employeeRouter.post('/addEmployee',authGuard,employeeController.postEmployee);
 employeeRouter.get('/employeeLogin',authGuard,employeeController.displayEmployeeLogin);
 employeeRouter.post('/employeeLogin',authGuard, employeeController.login);
 
+employeeRouter.post('/employeeList', authGuard, employeeController.treatEmployeeList);
 
 employeeRouter.get('/homepage', authGuard, employeeController.displayHome);
 module.exports = employeeRouter;

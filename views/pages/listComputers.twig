@@ -1,7 +1,7 @@
 {% extends "/layouts/base.twig" %}
 
 {% block style %}
-  <link rel="stylesheet" href="/assets/css/companySubscribe.css">
+  <link rel="stylesheet" href="/assets/css/listEmployees.css">
 {% endblock %}
 
 {% block main %}
@@ -13,23 +13,41 @@
        <div>
             <h2>{{ title }} - {{company.companyName}}</h2>
         </div>
-        <div>
-          {% for computer in company.computers %}
-            <article>
-              <h3>Computer :
-                {{computer.computerTitle}}</h3>
-              <p>Mac adresse :
-                {{computer.addressMac}}</p>
-                <p>Date d'achat :
-                {{computer.purchaseDate|date("d/m/Y")}}</p>
-                <p>Statut :
-                {{computer.status}}</p>
-                <p>Employé :
-                {{computer.employeeId}}</p>
-              <a href="/updateComputer/{{computer.id}}">Modifier</a>
-              <a href="/removeComputer/{{computer.id}}">Supprimer</a>
-            </article>
-          {% endfor %}
+
+        <div id="employeeTable">
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Ordinateur</th>
+                    <th>MAC</th>
+                    <th>Achat</th>
+                    <th>Statut</th>
+                    <th>Employé</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+                {% for computer in company.computers %}     
+                 <article>
+                    <tr class="employeeLine">
+                        <td>{{computer.id}}</td>
+                        <td>{{computer.computerTitle}}</td>
+                        <td>{{computer.addressMac}}</td>
+                        <td>{{computer.purchaseDate|date("d/m/Y")}}</td>
+                        <td>{{computer.status}}</td>
+                        <td>{{computer.employeeId}}</td>
+                        <td> 
+                            <form method="post" action="/computerList">
+                              <button class="btnForm" id="btnDelete" name="buttons" value="delete-{{computer.id}}">
+                                Delete
+                              </button>
+                              <button class="btnForm" id="btnModify" name="buttons" value="modify-{{computer.id}}">
+                                Modify
+                              </button>
+                          </form>
+                        </td>
+                    </tr>
+                    </article>
+             {% endfor %}
+            </table>
         </div>
     </div>
   </section>

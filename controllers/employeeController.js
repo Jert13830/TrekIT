@@ -21,6 +21,37 @@ exports.displayAddEmployee = async (req, res) => {
   });
 };
 
+exports.treatEmployeeList = async (req, res) => {
+    const action = req.body.buttons; // "delete-123" or "modify-123"
+
+  if (action.startsWith("delete-")) {
+    let toDelete = action.split("-")[1];
+    toDelete = parseInt(toDelete );
+    // handle delete
+   
+    try {
+        const deleteEmployee = await prisma.employee.delete({
+            where: {
+                id: toDelete
+            }
+        })
+        res.redirect("/employees")
+    } catch (error) {
+        console.log(error)
+        req.session.errorRequest = "L'employé n'a pas pu etre supprimer"
+        res.redirect("/employees")
+
+    }
+
+
+
+  } else if (action.startsWith("modify-")) {
+    const id = action.split("-")[1];
+    // handle modify
+     console.log("Modify " + id);
+  }
+};
+
 // Affiche la page de connexion
 exports.displayEmployeeLogin = async (req,res)=>{
     res.render("pages/employeeLogin.twig", {
