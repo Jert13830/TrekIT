@@ -9,7 +9,8 @@
   <section>
    
     <div>
-      <form id="computerForm" action="/addComputer" method="post">
+     
+      <form id="computerForm" action={{computer ? "/updateComputer/"~computer.id : "/addComputer"}} method="post">
        
        <div>
             <img id="trekitLogo" src="/assets/images/trekitWithoutText.png" alt="TrekIT logo">
@@ -31,6 +32,7 @@
             <p class="error">{{ error.computerTitle }}</p>
           {% endif %}
         </div>
+
          <div class="computerFormInput">
             <label for="addressMac">Nom</label>
             <input type="text" name="addressMac" id="addressMac" value="{{ computer.addressMac | default('') }}" required placeholder="00:00:5e:00:53:af" pattern="^(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})$">
@@ -41,19 +43,22 @@
               <p class="error">{{ duplicateMAC }}</p>
             {% endif %}
         </div>
-        <div>
+
+        <div class="computerFormInput">
           <label for="purchaseDate">Date d'achat</label>
-          <input type="date" name="purchaseDate" id="purchaseDate" value="{{ computer.purchaseDate }}>
+          <input type="date" name="purchaseDate" id="purchaseDate" value="{{ computer.purchase|date('Y-m-d') }}">
         </div>
+
         <div>
           <label for="status">Statut</label>
-          <select name="status" id="status" value="{{ computer.status }}>
+          <select name="status" id="status" value="{{ computer.status }}">
             <option value="Usagee">En usage</option>
             <option value="Réparation">En réparation</option>
             <option value="Disponible">Disponible</option>
             <option value="Retiré">Retiré</option>
           </select>
         </div>
+
         <div>
           <button type="submit" id="addComputerSubmit" name="addComputerSubmit">
               {% if computer %}

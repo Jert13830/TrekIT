@@ -35,9 +35,13 @@ exports.treatComputerList = async (req, res) => {
 
 
   } else if (action.startsWith("modify-")) {
-    const id = action.split("-")[1];
+    let id = action.split("-")[1];
+
+    id = parseInt(id);
     // handle modify
-     console.log("Modify " + id);
+
+    res.redirect("/updateComputer/"+id)
+     
   }
 };
 
@@ -90,6 +94,7 @@ exports.removeComputer = async (req, res) => {
 
 
 exports.displayUpdate = async(req,res)=>{
+    console.log("hi")
     const computer = await prisma.computer.findUnique({
         where: {
             id: parseInt(req.params.id)
@@ -105,19 +110,24 @@ exports.displayUpdate = async(req,res)=>{
 exports.updateComputer = async(req,res)=>{
     try {
         
+        console.log(req.params)
+
         const computerUpdated = await prisma.computer.update({
             where: {
                 id: parseInt(req.params.id)
             },
             data: {
-                title: req.body.title,
-                author: req.body.author
+                computerTitle: req.body.computerTitle,
+                addressMac: req.body.addressMac,
+                purchaseDate : req.body.purchaseDate ? new Date(req.body.purchaseDate) : null,
+                status: req.body.status
             }
         })
         
-        res.redirect("/home")
+        res.redirect("/computers")
     } catch (error) {
-        req.session.errorRequest = "La modificatiojn du livre a echoué"
+        console.log(error)
+        req.session.errorRequest = "La modificatiojn d'ordinateur a echoué"
         res.redirect("/updateComputer/"+req.params.id)
     }
 }
