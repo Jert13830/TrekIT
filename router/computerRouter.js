@@ -9,6 +9,9 @@ computerRouter.post('/addComputer', authGuard,computerController.postComputer);
 
 computerRouter.post('/computerList', authGuard, computerController.treatComputerList);
 
+computerRouter.get('/assignComputer', authGuard, computerController.getComputerList);
+computerRouter.post('/assignComputer', authGuard, computerController.assignComputer);
+
 computerRouter.get("/removeComputer/:id",authGuard , computerController.removeComputer);
 
 computerRouter.get("/updateComputer/:id", authGuard, computerController.displayUpdate);

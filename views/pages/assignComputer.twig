@@ -1,0 +1,53 @@
+{% extends "/layouts/base.twig" %}
+
+{% block style %}
+  <link rel="stylesheet" href="/assets/css/addComputer.css">
+{% endblock %}
+
+{% block main %}
+<main>
+  <section>
+   
+    <div>
+     
+      <form id="computerForm" action="/assignComputer" method="post">
+       
+       <div>
+            <img id="trekitLogo" src="/assets/images/trekitWithoutText.png" alt="TrekIT logo">
+       </div>
+       
+       <div id="formTitle">
+            <h2>Attribuer un ordinateur</h2>
+        </div>
+        <div class="computerFormInput">
+          <label for="computerList">Ordinateur</label>
+        <select name="computerList" id="computerList">
+          {% if computersAvailable is not empty %}
+            {% for computer in computersAvailable %}
+              <option value="{{ computer.id }}">{{ computer.id }} - {{ computer.computerTitle }}</option>
+            {% endfor %}
+          {% else %}
+            <option disabled selected>Aucun ordinateur disponible</option>
+          {% endif %}
+        </select>
+        </div>
+         <div class="computerFormInput">
+            <label for="employeeList">Employé</label>
+            <select name="employeeList" id="employeeList">
+            {% if employeesWithoutComputer is not empty %}
+              {% for employee in employeesWithoutComputer %}
+                <option value="{{ employee.id }}">{{ employee.id }} - {{ employee.lastName }} {{ employee.firstName }}</option>
+              {% endfor %}
+            {% else %}
+              <option disabled selected>Aucun employé sans ordinateur</option>
+            {% endif %}
+        </select>
+        </div>
+        <div>
+          <button type="submit" id="addComputerSubmit" name="addComputerSubmit">Attribuer</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+{% endblock %}

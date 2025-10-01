@@ -107,10 +107,30 @@ exports.displayUpdate = async(req,res)=>{
     })
 }
 
+exports.getComputerList = async (req, res) => {
+  try {
+    const computersAvailable = await prisma.computer.findMany({
+      where: { status: "Disponible" }
+    });
+
+    const employeesWithoutComputer = await prisma.employee.findMany({
+      where: { computer: null }
+    });
+
+    res.render("pages/assignComputer.twig", {
+      computersAvailable,
+      employeesWithoutComputer,
+      errorRequest: req.session.errorRequest,
+    });
+  } catch (error) {
+    console.error(error);
+    req.session.errorRequest = "Impossible de charger la liste";
+    res.redirect("/error");
+  }
+};
+
 exports.updateComputer = async(req,res)=>{
     try {
-        
-        console.log(req.params)
 
         const computerUpdated = await prisma.computer.update({
             where: {
@@ -131,3 +151,26 @@ exports.updateComputer = async(req,res)=>{
         res.redirect("/updateComputer/"+req.params.id)
     }
 }
+
+exports.assignComputer = async (req, res) => {
+  try {
+   const computerId = parseInt(req.body.computerList, 10);
+   const employeeId = parseInt(req.body.employeeList, 10);
+   
+    await prisma.computer.update({
+      where: {
+        id: computerId,
+      },
+      data: {
+        employeeId: employeeId,
+        status: "Assigné",
+      },
+    });
+
+    res.redirect("/computers");
+  } catch (error) {
+    console.error(error);
+    req.session.errorRequest = "Impossible d'assigner l'ordinateur";
+    res.redirect("/assignComputer");
+  }
+};

@@ -141,11 +141,23 @@ exports.displayEmployees = async (req, res) => {
     try {
        
 
-       const company = await prisma.company.findUnique({
+    /*   const company = await prisma.company.findUnique({
              where: { id: req.session.company.id },
              include: { employees: true, computers: true },
+        });*/
+
+       const company = await prisma.company.findUnique({
+          where: { id: req.session.company.id },
+          include: {
+            employees: {
+              include: {
+                computer: true, // each employee gets their computer object (or null)
+              },
+            },
+          },
         });
        
+        console.log(company);
         
        res.render('pages/listEmployees.twig', {
             title: 'Liste des employés',

@@ -6,17 +6,12 @@ body {
     flex-direction: column;
     background-color: #f0f0f0;
     
+    min-height: 100vh;
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     }
 
-    main{
-
-    margin-top: 60px;
-    margin-bottom: 30px;
-}
-
-#companySubscribeForm {
+#computerForm {
     background-color: #F9FAFB;
     padding: 20px;
     border-radius: 8px;
@@ -36,20 +31,20 @@ body {
     min-width: 30%;
 }
 
-.companySubscribeFormInput {
+.computerFormInput {
     display: flex;
     flex-direction: column;
     align-items: stretch; 
 }
 
-.companySubscribeFormInput label {
+.computerFormInput label {
     min-width: max-content; 
     margin-bottom: 5px;
     font-weight: bold;
     color: #4b5563;
 }
 
-.companySubscribeFormInput input {
+.computerFormInput input {
     box-sizing: border-box;
     width: 100%; 
     height: 2rem;
@@ -58,7 +53,7 @@ body {
     border: 1px solid #d7dcdf;
 }
 
-#companySubmit{
+#addComputerSubmit{
     width:100%;
     height: 2rem;
     color:#F9FAFB;
@@ -70,6 +65,13 @@ body {
 
 #formTitle{
     text-align: center;
+ margin: 0;
+    padding:0;
+}
+
+h2{
+    margin: 0;
+    padding:0;
 }
 
 #connectP{
@@ -86,20 +88,9 @@ body {
     
 }
 
-#formTitle{
-    text-align: center;
-    margin: 0;
-    padding:0;
-}
-
-h2{
-    margin: 0;
-    padding:0;
-}
-
 
 @media (width <= 520px) {
-  .companySubscribeFormInput label {
+  .computerFormInput label {
     font-size: 0.75rem;
   }
 
