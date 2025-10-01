@@ -6,6 +6,7 @@ body {
     flex-direction: column;
     background-color: #f0f0f0;
     
+    min-height: 100vh;
     font-family: "Montserrat", sans-serif;
     font-style: normal;
     }
@@ -64,6 +65,13 @@ body {
 
 #formTitle{
     text-align: center;
+ margin: 0;
+    padding:0;
+}
+
+h2{
+    margin: 0;
+    padding:0;
 }
 
 #connectP{

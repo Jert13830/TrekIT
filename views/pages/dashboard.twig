@@ -1,7 +1,7 @@
 {% extends "/layouts/base.twig" %}
 
 {% block style %}
-  <link rel="stylesheet" href="/assets/css/companySubscribe.css">
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
 {% endblock %}
 
 {% block main %}
@@ -13,16 +13,31 @@
        <div>
             <h2>{{ title }} - {{company.companyName}}</h2>
         </div>
-        <div>
-          
-          {% for employee in company.employees %}
-            <article>
-              <h3>Prenom :
-                {{employee.firstName}}</h3>
-              <p>Nom :
-                {{employee.lastName}}</p>
-            </article>
-          {% endfor %}
+        <div id="wrapper">
+         <div>
+              <div id="employeeTable">
+            <table>
+                <tr>
+                    <th>Ordinateur</th>
+                    <th>MAC</th>
+                    <th>Statut</th>
+                    <th>Employé</th>
+                </tr>
+                {% for computer in company.computers %}     
+                 <article>
+                    <tr class="employeeLine">
+                        <td>{{computer.computerTitle}}</td>
+                        <td>{{computer.addressMac}}</td>
+                        <td>{{computer.status}}</td>
+                        <td>{{computer.employeeId}}</td>
+                    </tr>
+                    </article>
+             {% endfor %}
+            </table>
+        </div>
+         
+         </div>
+          <div>Two</div>
         </div>
     </div>
   </section>

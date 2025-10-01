@@ -4,13 +4,14 @@ header {
   align-items: center;
   padding: 1rem;
   color: #40513B; 
-  position: relative;
   z-index: 10;
-
   width:100%;
-   position: fixed;
+  position: fixed;
   top: 0;
-  
+  background-color: #f0f0f0;
+
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
 }
 
 #icon {

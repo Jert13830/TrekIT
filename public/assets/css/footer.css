@@ -3,4 +3,8 @@ footer{
     position: fixed;
     width: 100%;
     bottom: 0;
+    background-color: #f0f0f0;
+    
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
 }

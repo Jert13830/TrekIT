@@ -16,18 +16,24 @@
        </div>
        
        <div id="formTitle">
-            <h2>{{ title }}</h2>
+            <h2>
+            {% if computer %}
+                Modification - Ordinateur
+            {% else %}
+                Inscription - Ordinateur
+            {% endif %}
+          </h2>
         </div>
         <div class="computerFormInput">
           <label for="computerTitle">Ordinateur</label>
-          <input type="text" name="computerTitle" id="computerTitle" value="{{ computerTitle | default('') }}" required>
+          <input type="text" name="computerTitle" id="computerTitle" value="{{ computer.computerTitle | default('') }}" required>
           {% if error.computerTitle %}
             <p class="error">{{ error.computerTitle }}</p>
           {% endif %}
         </div>
          <div class="computerFormInput">
             <label for="addressMac">Nom</label>
-            <input type="text" name="addressMac" id="addressMac" value="{{ addressMac | default('') }}" required placeholder="00:00:5e:00:53:af" pattern="^(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})$">
+            <input type="text" name="addressMac" id="addressMac" value="{{ computer.addressMac | default('') }}" required placeholder="00:00:5e:00:53:af" pattern="^(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})$">
             {% if error.addressMac %}
               <p class="error">{{ error.addressMac }}</p>
             {% endif %}
@@ -37,11 +43,11 @@
         </div>
         <div>
           <label for="purchaseDate">Date d'achat</label>
-          <input type="date" name="purchaseDate" id="purchaseDate">
+          <input type="date" name="purchaseDate" id="purchaseDate" value="{{ computer.purchaseDate }}>
         </div>
         <div>
           <label for="status">Statut</label>
-          <select name="status" id="status">
+          <select name="status" id="status" value="{{ computer.status }}>
             <option value="Usagee">En usage</option>
             <option value="Réparation">En réparation</option>
             <option value="Disponible">Disponible</option>
@@ -49,7 +55,13 @@
           </select>
         </div>
         <div>
-          <button type="submit" id="addComputerSubmit" name="addComputerSubmit">Register</button>
+          <button type="submit" id="addComputerSubmit" name="addComputerSubmit">
+              {% if computer %}
+                    Mise à jour
+                {% else %}
+                    Register
+                {% endif %}
+            </button>
         </div>
       </form>
     </div>

@@ -22,12 +22,12 @@ exports.displayAddEmployee = async (req, res) => {
 };
 
 exports.treatEmployeeList = async (req, res) => {
-    const action = req.body.buttons; // "delete-123" or "modify-123"
+    const action = req.body.buttons;
 
+     //Delete the employee
   if (action.startsWith("delete-")) {
     let toDelete = action.split("-")[1];
     toDelete = parseInt(toDelete );
-    // handle delete
    
     try {
         const deleteEmployee = await prisma.employee.delete({
@@ -37,18 +37,19 @@ exports.treatEmployeeList = async (req, res) => {
         })
         res.redirect("/employees")
     } catch (error) {
-        console.log(error)
+        
         req.session.errorRequest = "L'employé n'a pas pu etre supprimer"
         res.redirect("/employees")
 
     }
 
-
-
+    //Modify the employee
   } else if (action.startsWith("modify-")) {
-    const id = action.split("-")[1];
-    // handle modify
-     console.log("Modify " + id);
+    let toModify = action.split("-")[1];
+    toModify = parseInt(toModify);
+
+   res.redirect("/updateEmployee/"+toModify)
+      
   }
 };
 
@@ -140,3 +141,50 @@ exports.displayHome = async (req, res) => {
         res.redirect('/employeeLogin'); // Redirect to login on error
     }
 };
+
+exports.updateEmployee = async(req,res)=>{
+    try {
+
+          const data = {};
+
+          if (req.body.password && req.body.password.trim() !== "") {
+            data.email = req.body.email;
+            data.firstName = req.body.firstName;
+            data.lastName = req.body.lastName;
+            const hashedPassword = bcrypt.hashSync(req.body.password, 12);
+            data.password = hashedPassword;
+          }
+          else{
+            data.email = req.body.email;
+            data.firstName = req.body.firstName;
+            data.lastName = req.body.lastName;
+          }
+            
+          const employeeUpdated = await prisma.employee.update({
+            where: {
+                id: parseInt(req.params.id)
+            },
+            data,
+            })
+          
+        
+        res.redirect("/employees")
+    } 
+    catch (error) {
+        req.session.errorRequest = "LLa modification apportée à l'employé a echoué"
+        res.redirect("/displayUpdate/"+req.params.id)
+    }
+}
+
+exports.displayUpdate = async(req,res)=>{
+ const modifyEmployee = await prisma.employee.findUnique({
+        where: {
+                 id: parseInt(req.params.id)
+            }
+        })
+     res.render('pages/addEmployee.twig',{
+      employee : modifyEmployee,
+      errorRequest: req.session.errorRequest,
+      company: req.session.company
+    })
+}

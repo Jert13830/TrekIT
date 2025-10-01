@@ -26,7 +26,7 @@ exports.treatComputerList = async (req, res) => {
         })
         res.redirect("/computers")
     } catch (error) {
-        console.log(error)
+   
         req.session.errorRequest = "Le ordinateur n'a pas pu etre supprimer"
         res.redirect("/computers")
 
@@ -67,7 +67,7 @@ exports.postComputer = async (req, res) => {
             companyName: req.body.companyName,
             });
         } else{
-            console.log(error);
+            
             res.render("pages/addComputer.twig")
         }
     }

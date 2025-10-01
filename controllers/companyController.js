@@ -53,7 +53,7 @@ exports.postCompany = async (req, res) => {
     res.redirect('/login');
 
   } catch (error) {
-    console.log('Error:', error);
+   
     if (error.code === 'P2002') {
       // Unique constraint violation (duplicate SIRET)
       return res.render('pages/companySubscribe.twig', {
@@ -138,14 +138,17 @@ exports.displayDashboard = async (req, res) => {
 
 
 exports.displayEmployees = async (req, res) => {
+
+    console.log("Hi there");
     try {
-       // const company = req.session.company;
-        
+       
+
        const company = await prisma.company.findUnique({
              where: { id: req.session.company.id },
              include: { employees: true, computers: true },
         });
        
+        
        res.render('pages/listEmployees.twig', {
             title: 'Liste des employés',
             company: company, // Pass company data to the template

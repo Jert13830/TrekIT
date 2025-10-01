@@ -10,6 +10,13 @@ body {
     font-style: normal;
     }
 
+main{
+
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+
 #employeeForm {
     background-color: #F9FAFB;
     padding: 20px;
@@ -64,6 +71,13 @@ body {
 
 #formTitle{
     text-align: center;
+    margin: 0;
+    padding:0;
+}
+
+h2{
+    margin: 0;
+    padding:0;
 }
 
 #connectP{
@@ -80,6 +94,10 @@ body {
     
 }
 
+#opt{
+    display:flex;
+    justify-content:space-around;
+}
 
 @media (width <= 520px) {
   .employeeFormInput label {
@@ -90,3 +108,4 @@ body {
     font-size: 0.5rem;
     }
 }
+

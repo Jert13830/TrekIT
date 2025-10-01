@@ -11,6 +11,9 @@ employeeRouter.post('/employeeLogin',authGuard, employeeController.login);
 
 employeeRouter.post('/employeeList', authGuard, employeeController.treatEmployeeList);
 
+employeeRouter.get("/updateEmployee/:id", authGuard, employeeController.displayUpdate);
+employeeRouter.post("/updateEmployee/:id" , authGuard , employeeController.updateEmployee);
+
 employeeRouter.get('/homepage', authGuard, employeeController.displayHome);
 module.exports = employeeRouter;
 

@@ -1,28 +1,27 @@
 body {
     min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content:center;
-  background-color: #f0f0f0;
-}
-
-.main {
-  margin-top: 100px; 
-}
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    }
 
 h2{
     color: #4b5563;
 }    
 
-#pageContent{
-    display: flex;
-    flex-direction: column;
+#wrapper{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
+
 
 table {
    border-collapse: collapse;
-  min-width: 830px; 
   padding :10px;
 }
 
@@ -34,7 +33,6 @@ th{
 
 td{
     padding : 10px;
-   text-align: center;
 }
 .employeeLine:nth-child(even){
   background-color: #F9FAFB;
@@ -93,7 +91,6 @@ a.button {
     background: #2563eb;
     color : #F9FAFB;
     border-radius: 10px;
-    padding:5px;
 }
 
 .btnForm:hover{
