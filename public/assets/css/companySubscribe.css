@@ -10,6 +10,12 @@ body {
     font-style: normal;
     }
 
+    main{
+
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
 #companySubscribeForm {
     background-color: #F9FAFB;
     padding: 20px;

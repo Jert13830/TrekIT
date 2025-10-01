@@ -58,35 +58,31 @@
               </div>
          </div> -->
             <div class="employeeFormInput">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" value="{{ employee.email | default('') }}" required>
-              {% if errors.email %}
-                <p>{{errors.email}}</p>
-              {% endif %}
-              {% if duplicateEmail %}
-                <p>{{duplicateEmail}}</p>
-              {% endif %}
-            </div>
-        <div class="employeeFormInput">
-          <label for="password">Mot de passe</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-             {% if not employee %} required {% endif %}
-    
-            pattern="^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$"
-            placeholder="6+ caractères, 1 lettre, 1 chiffre"
-            autocomplete="current-password"
-          >
-        </div>
-        <div class="employeeFormInput">
-          <label for="confirmPassword">Confirmer le mot de passe</label>
-          <input type="password" name="confirmPassword" id="confirmPassword" value="{{ confirmPassword | default('') }}"  {% if not employee %} required {% endif %}>
-          {% if error.confirmPassword %}
-            <p class="error">{{ error.confirmPassword }}</p>
-          {% endif %}
-        </div>
+  <label for="password">Votre mot de passe</label>
+  <input
+    type="password"
+    name="password"
+    id="password"
+    {% if not company %} required {% endif %}
+    pattern="^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$"
+    placeholder="6+ caractères, 1 lettre, 1 chiffre"
+    autocomplete="current-password"
+  >
+</div>
+
+<div class="employeeFormInput">
+  <label for="confirmPassword">Confirmez votre mot de passe</label>
+  <input
+    type="password"
+    name="confirmPassword"
+    id="confirmPassword"
+    value="{{ confirmPassword | default('') }}"
+    {% if not company %} required {% endif %}
+  >
+  {% if error.confirmPassword %}
+    <p class="error">{{ error.confirmPassword }}</p>
+  {% endif %}
+</div>
         <div>
           <button type="submit" id="addEmployeeSubmit" name="addEmployeeSubmit">
                {% if employee %}

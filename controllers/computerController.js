@@ -94,7 +94,7 @@ exports.removeComputer = async (req, res) => {
 
 
 exports.displayUpdate = async(req,res)=>{
-    console.log("hi")
+    
     const computer = await prisma.computer.findUnique({
         where: {
             id: parseInt(req.params.id)

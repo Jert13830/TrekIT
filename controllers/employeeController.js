@@ -47,8 +47,8 @@ exports.treatEmployeeList = async (req, res) => {
   } else if (action.startsWith("modify-")) {
     let toModify = action.split("-")[1];
     toModify = parseInt(toModify);
-
-   res.redirect("/updateEmployee/"+toModify)
+   
+   res.redirect("/updateEmployee/" + toModify)
       
   }
 };
@@ -144,7 +144,7 @@ exports.displayHome = async (req, res) => {
 
 exports.updateEmployee = async(req,res)=>{
     try {
-
+          console.log("hello")
           const data = {};
 
           if (req.body.password && req.body.password.trim() !== "") {
@@ -172,7 +172,8 @@ exports.updateEmployee = async(req,res)=>{
     } 
     catch (error) {
         req.session.errorRequest = "LLa modification apportée à l'employé a echoué"
-        res.redirect("/displayUpdate/"+req.params.id)
+        //res.redirect("/displayUpdate/"+req.params.id)
+        res.redirect("/updateEmployee/"+req.params.id)
     }
 }
 

@@ -138,8 +138,6 @@ exports.displayDashboard = async (req, res) => {
 
 
 exports.displayEmployees = async (req, res) => {
-
-    console.log("Hi there");
     try {
        
 
@@ -182,4 +180,53 @@ exports.displayComputers = async (req, res) => {
 exports.logout = async (req,res)=>{
     req.session.destroy()
     res.redirect('/login')
+}
+
+exports.displayUpdateCompany = async(req,res)=>{
+
+const modifyCompany = await prisma.company.findUnique({
+        where: {
+                 id: parseInt( req.session.company.id)
+            }
+        })
+     res.render('pages/companySubscribe.twig',{
+      company : modifyCompany,
+      errorRequest: req.session.errorRequest,
+    })
+
+}
+
+exports.updateCompany = async(req,res)=>{
+    try {
+          const data = {};
+
+          if (req.body.password && req.body.password.trim() !== "") {
+            data.companyName = req.body.companyName;
+            data.siret = req.body.siret;
+            const hashedPassword = bcrypt.hashSync(req.body.password, 12);
+            data.password = hashedPassword;
+            data.directorName = req.body.directorName;
+          }
+          else{
+             data.companyName = req.body.companyName;
+             data.siret = req.body.siret;
+             data.directorName = req.body.directorName;
+          }
+
+        const companyUpdated = await prisma.company.update({
+            where: {
+                id: parseInt(req.params.id)
+            },
+            data,
+            })
+        
+       res.render('pages/dashboard.twig', {
+            title: 'Tableau de bord',
+            company:req.session.company, // Pass company data to the template
+        });
+    } catch (error) {
+        console.log(error)
+        req.session.errorRequest = "La modification du profil de l'entreprise n'a pas abouti."
+        res.redirect("/displayDashboard")
+    }
 }

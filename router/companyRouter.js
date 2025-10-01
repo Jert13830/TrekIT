@@ -14,6 +14,9 @@ companyRouter.get('/dashboard', authGuard, companyController.displayDashboard);
 companyRouter.get('/employees',authGuard, companyController.displayEmployees);
 companyRouter.get('/computers',authGuard, companyController.displayComputers);
 
+companyRouter.get("/updateCompany", authGuard, companyController.displayUpdateCompany);
+companyRouter.post("/updateCompany/:id" , authGuard , companyController.updateCompany);
+
 module.exports = companyRouter;
 
 

@@ -9,18 +9,26 @@
   <section>
    
     <div>
-      <form id="companySubscribeForm" action="/companySubscribe" method="post">
+   
+      <form id="companySubscribeForm" action= {{company ? "/updateCompany/"~company.id : "/companySubscribe"}} method="post">
        
        <div>
             <img id="trekitLogo" src="/assets/images/trekitWithoutText.png" alt="TrekIT logo">
        </div>
        
        <div id="formTitle">
-            <h2>{{ title }}</h2>
+        <h2>
+             {% if company %}
+                 Modification - Entreprise
+            {% else %}
+                Inscription - Employé
+            {% endif %}
+        </h2>
+      
         </div>
         <div class="companySubscribeFormInput">
           <label for="companyName">Raison Sociale</label>
-          <input type="text" name="companyName" id="companyName" value="{{ companyName | default('') }}" required>
+          <input type="text" name="companyName" id="companyName" value="{{ company.companyName | default('') }}" required>
           {% if error.companyName %}
             <p class="error">{{ error.companyName }}</p>
           {% endif %}
@@ -34,7 +42,7 @@
             required
             pattern="\d{3}\s?\d{3}\s?\d{3}\s?\d{5}"
             placeholder="123 456 789 01234"
-            value="{{ siret | default('') }}"
+            value="{{ company.siret | default('') }}"
           >
           {% if error.siret %}
             <p class="error">{{ error.siret }}</p>
@@ -45,29 +53,40 @@
         </div>
         <div class="companySubscribeFormInput">
           <label for="directorName">Nom du directeur</label>
-          <input type="text" name="directorName" id="directorName" value="{{ directorName | default('') }}">
+          <input type="text" name="directorName" id="directorName" value="{{ company.directorName | default('') }}">
         </div>
         <div class="companySubscribeFormInput">
-          <label for="password">Votre mot de passe</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            required
-            pattern="^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$"
-            placeholder="6+ caractères, 1 lettre, 1 chiffre"
-            autocomplete="current-password"
-          >
-        </div>
-        <div class="companySubscribeFormInput">
-          <label for="confirmPassword">Confirmez votre mot de passe</label>
-          <input type="password" name="confirmPassword" id="confirmPassword" value="{{ confirmPassword | default('') }}" required>
-          {% if error.confirmPassword %}
-            <p class="error">{{ error.confirmPassword }}</p>
-          {% endif %}
-        </div>
+  <label for="password">Votre mot de passe</label>
+  <input
+    type="password"
+    name="password"
+    id="password"
+    {% if not company %} required {% endif %}
+    pattern="^(?=.*?[0-9])(?=.*?[A-Za-z]).{6,}$"
+    placeholder="6+ caractères, 1 lettre, 1 chiffre"
+    autocomplete="current-password"
+  >
+    </div>
+
+    <div class="companySubscribeFormInput">
+      <label for="confirmPassword">Confirmez votre mot de passe</label>
+      <input
+        type="password"
+        name="confirmPassword"
+        id="confirmPassword"
+        value="{{ confirmPassword | default('') }}"
+        {% if not company %} required {% endif %}
+      >
+      {% if error.confirmPassword %}
+        <p class="error">{{ error.confirmPassword }}</p>
+      {% endif %}
+    </div>
         <div>
-          <button type="submit" id="companySubmit" name="companySubmit">Register</button>
+          <button type="submit" id="companySubmit" name="companySubmit">{% if company %}
+                Mise à jour
+            {% else %}
+                 Register
+            {% endif %}</button>
         </div>
         <div>
           <p id="connectP">Vous êtes déjà inscrit, <a id="connectA" href="/login">connectez-vous</a></p>
