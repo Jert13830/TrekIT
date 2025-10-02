@@ -64,6 +64,9 @@ exports.displayEmployeeLogin = async (req,res)=>{
 }
 
 exports.postEmployee = async (req, res) => {
+
+   
+
   try {
     if (req.body.password !== req.body.confirmPassword) {
       return res.render("pages/addEmployee.twig", {
@@ -71,6 +74,8 @@ exports.postEmployee = async (req, res) => {
       });
     }
 
+    console.log(req.body)
+    
     const employee = await prisma.employee.create({
       data: {
         email: req.body.email,
@@ -85,6 +90,7 @@ exports.postEmployee = async (req, res) => {
 
     res.redirect("/employees");
   } catch (error) {
+    console.log(error)
     if (error.code === "P2002") {
       res.render("pages/addEmployee.twig", {
         duplicateEmail: "Email déjà utilisé",
@@ -156,6 +162,7 @@ exports.updateEmployee = async(req,res)=>{
           data.lastName = req.body.lastName;
           data.dob = req.body.dob ? new Date(req.body.dob) : null,
           data.gender = req.body.gender;
+          
             
           const employeeUpdated = await prisma.employee.update({
             where: {

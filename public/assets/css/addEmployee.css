@@ -104,6 +104,10 @@ h2{
     font-size: 0.75rem;
   }
 
+  #opt{
+    flex-direction: column;
+  }
+
   #connectP{
     font-size: 0.5rem;
     }

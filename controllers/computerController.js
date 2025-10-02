@@ -102,13 +102,7 @@ exports.displayUpdate = async(req,res)=>{
     })
 
      //set the date of birth to yymmdd
-
-    console.log("Before : "+  computer.purchaseDate);
-
     computer.purchaseDate = computer.purchaseDate.toISOString().split("T")[0];   
-
-     console.log("After : "+  computer.purchaseDate);
-
     res.render('pages/addComputer.twig',{
         computer : computer,
         errorRequest: req.session.errorRequest,

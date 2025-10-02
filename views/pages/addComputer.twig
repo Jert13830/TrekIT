@@ -34,7 +34,7 @@
         </div>
 
          <div class="computerFormInput">
-            <label for="addressMac">Nom</label>
+            <label for="addressMac">Adresse MAC</label>
             <input type="text" name="addressMac" id="addressMac" value="{{ computer.addressMac | default('') }}" required placeholder="00:00:5e:00:53:af" pattern="^(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})$">
             {% if error.addressMac %}
               <p class="error">{{ error.addressMac }}</p>

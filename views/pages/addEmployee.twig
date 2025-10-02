@@ -40,6 +40,17 @@
             <p class="error">{{ error.lastName }}</p>
           {% endif %}
         </div>
+        <div class="employeeFormInput">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" value="{{ employee.email | default('') }}" required>
+					{% if errors.email %}
+						<p>{{errors.email}}</p>
+					{% endif %}
+					{% if duplicateEmail %}
+						<p>{{duplicateEmail}}</p>
+					{% endif %}
+
+				</div>
 
        <div id="opt">
             <div class="employeeFormInput">
