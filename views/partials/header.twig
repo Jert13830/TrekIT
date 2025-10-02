@@ -4,10 +4,10 @@
 
 <header>
     <div id="headrDiv">
-        <div id="headerLogo">
-            <img id="icon" src="/assets/images/trekitScreen.png" alt="">
+        <a href="/dashboard"><div id="headerLogo">
+             <img id="icon" src="/assets/images/trekitScreen.png" alt="Logo TrekIT">
             <h1>TrekIT</h1>
-        </div>
+        </div></a>
         <div id="navDiv">
 
             <!-- Hamburger button -->
@@ -23,14 +23,14 @@
                         <a href="/dashboard">🏠 Dashboard</a>
                     </li>
                     <li>
-                        <a href="#">👥 Employés</a>
+                        <a href="#">👥 Employés ▾</a>
                         <ul class="servicesList">
                             <li><a href="/addEmployee">Ajouter</a></li>
                             <li><a href="/employees">Liste</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">💻 Ordinateurs</a>
+                        <a href="#">💻 Ordinateurs ▾</a>
                         <ul class="servicesList">
                             <li><a href="/addComputer">Ajouter</a></li>
                             <li><a href="/assignComputer">Attribuer</a></li>
@@ -44,12 +44,14 @@
                         <a href="/reports">📊 Reports</a>
                     </li>
                     <li>
-                        <a href="/settings">⚙️ Settings</a>
+                        <a href="/settings">⚙️ Settings ▾</a>
+                        <ul class="servicesList">
+                            <li><a href="/updateCompany">Profile</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#">Connexion ▾</a>
                         <ul class="servicesList">
-                            <li><a href="/updateCompany">Profile</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>

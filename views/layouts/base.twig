@@ -17,7 +17,9 @@
 </head>
 <body>
   <header>
-    {% include "/partials/header.twig" %}
+     {% if company %}
+         {% include "/partials/header.twig" %}
+      {% endif %}
   </header>
 
   <main id="pageContent">

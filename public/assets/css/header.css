@@ -21,12 +21,18 @@ header {
 
 #headerLogo{
     display: flex;
+    
 }
 
 #headrDiv{
     display: flex;
     align-items: center;
     gap:10px;
+}
+
+#headrDiv a {
+  text-decoration: none;
+  color: #40513B; 
 }
 
 /* Hamburger styling */

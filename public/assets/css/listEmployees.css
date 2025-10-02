@@ -7,9 +7,13 @@ body {
   background-color: #f0f0f0;
 }
 
-.main {
-  margin-top: 100px; 
+
+main{
+
+    margin-top: 60px;
+    margin-bottom: 30px;
 }
+
 
 h2{
     color: #4b5563;
