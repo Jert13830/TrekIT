@@ -46,16 +46,16 @@
 
         <div class="computerFormInput">
           <label for="purchaseDate">Date d'achat</label>
-          <input type="date" name="purchaseDate" id="purchaseDate" value="{{ computer.purchase|date('Y-m-d') }}">
+          <input type="date" name="purchaseDate" id="purchaseDate" value="{{ computer.purchaseDate| default('') }}">
         </div>
 
         <div>
           <label for="status">Statut</label>
-          <select name="status" id="status" value="{{ computer.status }}">
-            <option value="Usagee">Assigné</option>
-            <option value="Réparation">En réparation</option>
-            <option value="Disponible">Disponible</option>
-            <option value="Retiré">Retiré</option>
+          <select name="status" id="status">
+              <option value="Assigné" {{ computer.status == 'Assigné' ? 'selected' : '' }}>Assigné</option>
+              <option value="Réparation" {{ computer.status == 'Réparation' ? 'selected' : '' }}>Réparation</option>
+              <option value="Disponible" {{ (computer.status is empty or computer.status == 'Disponible') ? 'selected' : '' }}>Disponible</option>
+              <option value="Retiré" {{ computer.status == 'Retiré' ? 'selected' : '' }}>Retiré</option>  
           </select>
         </div>
 

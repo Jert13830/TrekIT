@@ -144,21 +144,18 @@ exports.displayHome = async (req, res) => {
 
 exports.updateEmployee = async(req,res)=>{
     try {
-          console.log("hello")
           const data = {};
 
           if (req.body.password && req.body.password.trim() !== "") {
-            data.email = req.body.email;
-            data.firstName = req.body.firstName;
-            data.lastName = req.body.lastName;
             const hashedPassword = bcrypt.hashSync(req.body.password, 12);
             data.password = hashedPassword;
           }
-          else{
-            data.email = req.body.email;
-            data.firstName = req.body.firstName;
-            data.lastName = req.body.lastName;
-          }
+          
+          data.email = req.body.email;
+          data.firstName = req.body.firstName;
+          data.lastName = req.body.lastName;
+          data.dob = req.body.dob ? new Date(req.body.dob) : null,
+          data.gender = req.body.gender;
             
           const employeeUpdated = await prisma.employee.update({
             where: {
@@ -183,6 +180,10 @@ exports.displayUpdate = async(req,res)=>{
                  id: parseInt(req.params.id)
             }
         })
+
+    //set the date of birth to yymmdd
+    modifyEmployee.dob= modifyEmployee.dob.toISOString().split("T")[0];        
+    
      res.render('pages/addEmployee.twig',{
       employee : modifyEmployee,
       errorRequest: req.session.errorRequest,

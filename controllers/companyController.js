@@ -131,7 +131,7 @@ exports.displayDashboard = async (req, res) => {
             company: company, // Pass company data to the template
         });
     } catch (error) {
-        console.error('Dashboard error:', error);
+        //
         res.redirect('/login'); // Redirect to login on error
     }
 };
@@ -156,8 +156,6 @@ exports.displayEmployees = async (req, res) => {
             },
           },
         });
-       
-        console.log(company);
         
        res.render('pages/listEmployees.twig', {
             title: 'Liste des employés',
@@ -237,7 +235,7 @@ exports.updateCompany = async(req,res)=>{
             company:req.session.company, // Pass company data to the template
         });
     } catch (error) {
-        console.log(error)
+        
         req.session.errorRequest = "La modification du profil de l'entreprise n'a pas abouti."
         res.redirect("/displayDashboard")
     }

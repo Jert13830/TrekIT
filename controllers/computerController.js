@@ -100,6 +100,15 @@ exports.displayUpdate = async(req,res)=>{
             id: parseInt(req.params.id)
         }
     })
+
+     //set the date of birth to yymmdd
+
+    console.log("Before : "+  computer.purchaseDate);
+
+    computer.purchaseDate = computer.purchaseDate.toISOString().split("T")[0];   
+
+     console.log("After : "+  computer.purchaseDate);
+
     res.render('pages/addComputer.twig',{
         computer : computer,
         errorRequest: req.session.errorRequest,
@@ -123,7 +132,7 @@ exports.getComputerList = async (req, res) => {
       errorRequest: req.session.errorRequest,
     });
   } catch (error) {
-    console.error(error);
+   
     req.session.errorRequest = "Impossible de charger la liste";
     res.redirect("/error");
   }
@@ -132,21 +141,33 @@ exports.getComputerList = async (req, res) => {
 exports.updateComputer = async(req,res)=>{
     try {
 
+const data = {};
+
+        if (req.body.status !== "Assigné") {
+            data.computerTitle = req.body.computerTitle,
+            data.addressMac = req.body.addressMac,
+            data.purchaseDate = req.body.purchaseDate ? new Date(req.body.purchaseDate) : null,
+            data.status = req.body.status,
+            data.employeeId = null
+        }
+        else{
+            data.computerTitle = req.body.computerTitle,
+            data.addressMac = req.body.addressMac,
+            data.purchaseDate = req.body.purchaseDate ? new Date(req.body.purchaseDate) : null,
+            data.status = req.body.status
+        }
+
         const computerUpdated = await prisma.computer.update({
             where: {
                 id: parseInt(req.params.id)
             },
-            data: {
-                computerTitle: req.body.computerTitle,
-                addressMac: req.body.addressMac,
-                purchaseDate : req.body.purchaseDate ? new Date(req.body.purchaseDate) : null,
-                status: req.body.status
-            }
+            data,
         })
+        
         
         res.redirect("/computers")
     } catch (error) {
-        console.log(error)
+       
         req.session.errorRequest = "La modificatiojn d'ordinateur a echoué"
         res.redirect("/updateComputer/"+req.params.id)
     }
@@ -169,7 +190,7 @@ exports.assignComputer = async (req, res) => {
 
     res.redirect("/computers");
   } catch (error) {
-    console.error(error);
+    
     req.session.errorRequest = "Impossible d'assigner l'ordinateur";
     res.redirect("/assignComputer");
   }

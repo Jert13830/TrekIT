@@ -41,22 +41,21 @@
           {% endif %}
         </div>
 
-       <!-- <div id="opt">
+       <div id="opt">
             <div class="employeeFormInput">
               <label for="dob">Date de Naissance</label>
-              <input type="date" name="dob" id="dob">
+              
+              <input type="date" name="dob" id="dob" value="{{ employee.dob | default('') }}">
             </div>
-            
-            <div><p </p></div>
               <div class="employeeFormInput">
                 <label for="gender">Genre</label>
                 <select name="gender" id="gender">
-                  <option value="homme">Homme</option>
-                  <option value="femme">Femme</option>
-                  <option selected="selected" value="autre">Autre</option>
+                  <option value="Homme" {{ employee.gender == 'Homme' ? 'selected' : '' }}>Homme</option>
+                  <option value="Femme" {{ employee.gender == 'Femme' ? 'selected' : '' }}>Femme</option>
+                  <option value="Autre" {{ (employee.gender is empty or employee.gender == 'Autre') ? 'selected' : '' }}>Autre</option>
                 </select>
               </div>
-         </div> -->
+         </div>
             <div class="employeeFormInput">
   <label for="password">Votre mot de passe</label>
   <input
