@@ -125,7 +125,13 @@ exports.login = async (req,res)=>{
 exports.displayDashboard = async (req, res) => {
     try {
         // Assuming the company is stored in req.session.company by authGuard
-        const company = req.session.company;
+        //const company = req.session.company;
+
+const company = await prisma.company.findUnique({
+             where: { id: req.session.company.id },
+             include: { employees: true, computers: true },
+        });
+
         res.render('pages/dashboard.twig', {
             title: 'Tableau de bord',
             company: company, // Pass company data to the template

@@ -14,9 +14,16 @@ h2{
     color: #4b5563;
 }    
 
+
+main{
+
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
 #wrapper{
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    gap:10px;
 }
 
 
@@ -40,7 +47,7 @@ td{
 
 #employeeTable{
    overflow-x: auto;  
-  width: 100%;     
+  width: 70%;     
 }
 
 a.button {
@@ -97,10 +104,28 @@ a.button {
     color : #22C55E;
 }
 
+#computerStatusPieChart{
+  width:100%;
+  max-width:600px
+  
+}
 
 @media (max-width: 830px) {
     body{
         align-items: stretch;  
     }
- 
+
+    #wrapper{
+      flex-direction: column;
+      align-items: center;
+    }
+
+    employeeTable{
+  
+        width: 90%;     
+    }
+    
+    h2{
+      text-align: center;
+    }
 }
