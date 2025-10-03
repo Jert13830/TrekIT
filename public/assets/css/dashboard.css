@@ -129,3 +129,20 @@ a.button {
       text-align: center;
     }
 }
+
+#btnAlert{
+  color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  text-align: center; 
+  padding: 10px 20px;
+  background-color: #900;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+
+#btnAlert:hover{
+  background-color: rgb(188, 36, 36);
+}

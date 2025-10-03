@@ -20,8 +20,9 @@
             <nav id="navbar">
                 <ul id="menuLine">
                     <li>
-                        <a href="/dashboard">🏠 Dashboard</a>
+                        <a href={{company ? "/dashboard" : "/homepage"}}>🏠 Tableau de bord</a>
                     </li>
+                    {% if company %}
                     <li>
                         <a href="#">👥 Employés ▾</a>
                         <ul class="servicesList">
@@ -38,21 +39,29 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/repairs">🛠 Repairs</a>
+                        <a href="/repairs">🛠 Réparations</a>
                     </li>
                     <li>
-                        <a href="/reports">📊 Reports</a>
+                        <a href="/reports">📊 Rapports</a>
                     </li>
+                    {% endif %}
                     <li>
-                        <a href="/settings">⚙️ Settings ▾</a>
+                        <a href="#">⚙️ Paramètres ▾</a>
                         <ul class="servicesList">
-                            <li><a href="/updateCompany">Profile</a></li>
+                        <li>
+    {% if company %}
+        <a href="/updateCompany">Profil</a>
+    {% else %}
+        <a href="{{ '/updateEmployee/' ~ employee.id }}">Profil</a>
+    {% endif %}
+</li>
                         </ul>
                     </li>
+                    
                     <li>
-                        <a href="#">Connexion ▾</a>
+                        <a href="#">🔒 Connexion ▾</a>
                         <ul class="servicesList">
-                            <li><a href="/logout">Logout</a></li>
+                            <li><a href={{company ? "/logout" : "/employeeLogout"}}>Logout</a></li>
                         </ul>
                     </li>
                 </ul>

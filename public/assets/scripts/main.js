@@ -1,5 +1,9 @@
- const toggleBtn = document.getElementById("menu-toggle");
-  const nav = document.getElementById("navbar");
+ const toggleBtn = document.querySelector("#menu-toggle");
+  const nav = document.querySelector("#navbar");
+  const passwordInput = document.querySelector("#password");
+  const confirmPasswordInput = document.querySelector("#confirmPassword");
+  const userLogo =  document.querySelector("#userLogo");
+
 
   toggleBtn.addEventListener("click", () => {
     toggleBtn.classList.toggle("active");
@@ -7,10 +11,6 @@
   });
 
   
-
-  /*const passwordInput = document.getElementById("password");
-  const confirmPasswordInput = document.getElementById("confirmPassword");
-
   function toggleConfirmPasswordRequired() {
     if (passwordInput.value.trim() !== "") {
       confirmPasswordInput.setAttribute("required", "required");
@@ -19,12 +19,22 @@
     }
   }
 
-  // run once on load
-  toggleConfirmPasswordRequired();
 
-  // re-check whenever user types in password
-  passwordInput.addEventListener("input", toggleConfirmPasswordRequired);*/
+if (passwordInput) {
+  passwordInput.addEventListener('input', function(e) {
+    toggleConfirmPasswordRequired()
+  });
+  
+}
 
+
+/*function toggleUserType() {
+   
+  }
+
+userLogo.addEventListener('input', function(e) {
+    toggleUserType()
+  });*/
 
  function maskInput(value, pattern) {
   let i = 0;

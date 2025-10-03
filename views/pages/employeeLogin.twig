@@ -9,14 +9,14 @@
   <section>
    
     <div>
-      <form id="loginForm" action="/login" method="post">
+      <form id="loginForm" action="/employeeLogin" method="post">
        
        <div id="logos">
         <div>
             <img id="trekitLogo" src="/assets/images/trekitWithText.png" alt="TrekIT logo">
         </div>
         <div>
-            <a href="/employeeLogin"><img id="logoUser" src="/assets/images/userBlue.png" alt="User logo"></a>
+           <a href="/login"><img id="logoUser" src="/assets/images/company.png" alt="Company logo"></a>
         </div>
        </div>
        
@@ -24,19 +24,11 @@
             <h2>{{ title }}</h2>
         </div>
         <div class="loginFormInput">
-          <label for="siret">N° Siret</label>
-          <input
-            type="text"
-            name="siret"
-            id="siret"
-            required
-            pattern="\d{3}\s?\d{3}\s?\d{3}\s?\d{5}"
-            placeholder="123 456 789 01234"
-            value="{{ siret | default('') }}"
-          >
-          {% if duplicateSiret %}
-            <p class="error">{{ duplicateSiret }}</p>
-          {% endif %}
+         <label for="email">Email</label>
+					<input type="email" id="email" name="email" required>
+					{% if errors.email %}
+						<p>{{errors.email}}</p>
+					{% endif %}
         </div>
         <div class="loginFormInput">
           <label for="password">Mot de passe</label>
@@ -52,9 +44,6 @@
         </div>
         <div>
           <button type="submit" id="loginSubmit" name="loginSubmit">Connectez-vous</button>
-        </div>
-        <div>
-          <p id="connectP">Vous n'êtes pas inscrit, <a id="connectA" href="/companySubscribe"> inscrivez-vous</a></p>
         </div>
       </form>
     </div>

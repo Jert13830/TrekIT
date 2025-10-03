@@ -17,7 +17,8 @@
 </head>
 <body>
   <header>
-     {% if company %}
+  <!-- if Company session is set show navbar -->
+     {% if company or employee %}
          {% include "/partials/header.twig" %}
       {% endif %}
   </header>

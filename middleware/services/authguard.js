@@ -23,8 +23,23 @@ const authguard = async (req, res, next) => {
                 return next()
             }
         }
+
+         // check if the session contains a employee.
+        if (req.session.employee) {
+            // Searches for the employee in the database using their ID stored in the session.
+            const employee = await prisma.employee.findUnique({
+                where: {
+                    id: req.session.employee.id
+                }
+            })
+            // if the employee exists move to next query
+            if (employee) {
+                return next()
+            }
+        }
+
         // If no company is logged in or not found in the database, an error is raised.
-        throw new Error("Entreprise non connecté")
+        throw new Error("Entreprise ou Employé non connecté")
     } catch (error) {
         // If there is an error the user is sent to the Login page
         res.redirect('/login')

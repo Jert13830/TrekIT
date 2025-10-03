@@ -106,7 +106,8 @@ exports.displayUpdate = async(req,res)=>{
     res.render('pages/addComputer.twig',{
         computer : computer,
         errorRequest: req.session.errorRequest,
-        user: req.session.user
+        user: req.session.user,
+        company: req.session.company
     })
 }
 
@@ -123,6 +124,7 @@ exports.getComputerList = async (req, res) => {
     res.render("pages/assignComputer.twig", {
       computersAvailable,
       employeesWithoutComputer,
+      company: req.session.company,
       errorRequest: req.session.errorRequest,
     });
   } catch (error) {

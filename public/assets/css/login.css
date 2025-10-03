@@ -79,13 +79,36 @@ body {
     
 }
 
+#logos{
+    display:flex;
+    align-items: center;
+}
+
+#logoUser{
+    width:50px;
+    cursor: pointer;
+}
 
 @media (width <= 520px) {
-  .loginFormInput label {
+  .loginFormInput label 
+  {
     font-size: 0.75rem;
   }
+
 
   #connectP{
     font-size: 0.5rem;
     }
+
+  #logoUser{
+    width:20px;
+    }  
+
+}
+
+@media (width <= 900px) {
+  
+  #logoUser{
+    width:40px;
+    }  
 }

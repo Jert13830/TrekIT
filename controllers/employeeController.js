@@ -4,6 +4,7 @@ const hashExtension = require("../middleware/extensions/hashPassword");
 const validateEmployee = require("../middleware/extensions/validateEmployeeCompany");
 
 const prisma = new PrismaClient().$extends(validateEmployee).$extends(hashExtension);
+const sendEmailConfirmAccount = require("../router/mailer");
 
 // Importation de bcrypt pour le hash et la comparaison des mots de passe
 const bcrypt = require('bcrypt')
@@ -11,6 +12,7 @@ const bcrypt = require('bcrypt')
 
 exports.displayAddEmployee = async (req, res) => {
   res.render('pages/addEmployee.twig', {
+    company : req.session.company,
     title: "Inscription - Employé",
     error: null,
     firstName: null,
@@ -65,8 +67,6 @@ exports.displayEmployeeLogin = async (req,res)=>{
 
 exports.postEmployee = async (req, res) => {
 
-   
-
   try {
     if (req.body.password !== req.body.confirmPassword) {
       return res.render("pages/addEmployee.twig", {
@@ -88,6 +88,21 @@ exports.postEmployee = async (req, res) => {
       },
     });
 
+    /**********SEND EMAIL TO CONFIRM ACCOUNT **********************/
+    await sendEmailConfirmAccount(
+      employee.email,
+      "Confirm your account",
+      `Hello ${employee.firstName}, 
+      
+      Please confirm your account. 
+      
+      The password is ${req.body.password}
+
+      The team TrekIT`
+    );
+
+    /***********************************************************/
+
     res.redirect("/employees");
   } catch (error) {
     console.log(error)
@@ -105,16 +120,19 @@ exports.postEmployee = async (req, res) => {
 
 exports.login = async (req,res)=>{
     try {
-        // Recherche l'utilisateur en base par son email
+
+        // Recherche l'employé en base par son email
         const employee = await prisma.employee.findUnique({
             where: {
                 email: req.body.email
-            }
-        })
+            },
+             include: { company: true, computer: true, },
+        });
+        
         if (employee) {
             // Si l'utilisateur existe, on compare le mot de passe fourni avec le hash stocké
             if (bcrypt.compareSync(req.body.password,employee.password)) {
-                // Si le mot de passe est correct, on stocke l'utilisateur dans la session
+                // Si le mot de passe est correct, on stocke l'employé dans la session
                 req.session.employee = employee
                 // Redirige vers la page d'accueil
                 res.redirect('/homepage')
@@ -139,9 +157,10 @@ exports.displayHome = async (req, res) => {
     try {
         // Assuming the employee is stored in req.session.employee by authGuard
         const employee = req.session.employee;
-        res.render('pages/homepage.twig', {
+        res.render('pages/employeeDashboard.twig', {
             title: 'Tableau de bord employé',
             employee: employee, // Pass employee data to the template
+            
         });
     } catch (error) {
         res.redirect('/employeeLogin'); // Redirect to login on error
@@ -153,8 +172,18 @@ exports.updateEmployee = async(req,res)=>{
           const data = {};
 
           if (req.body.password && req.body.password.trim() !== "") {
-            const hashedPassword = bcrypt.hashSync(req.body.password, 12);
-            data.password = hashedPassword;
+
+               if (req.body.password !== req.body.confirmPassword) {
+
+                  return  res.redirect("/updateEmployee/"+req.params.id, {
+                       confirmError: "Mot de passe non correspondant",
+                   });
+               }
+               else{
+                  const hashedPassword = bcrypt.hashSync(req.body.password, 12);
+                  data.password = hashedPassword;
+               }
+            
           }
           
           data.email = req.body.email;
@@ -170,9 +199,11 @@ exports.updateEmployee = async(req,res)=>{
             },
             data,
             })
-          
+         
         
         res.redirect("/employees")
+
+        
     } 
     catch (error) {
         req.session.errorRequest = "LLa modification apportée à l'employé a echoué"
@@ -189,11 +220,19 @@ exports.displayUpdate = async(req,res)=>{
         })
 
     //set the date of birth to yymmdd
-    modifyEmployee.dob= modifyEmployee.dob.toISOString().split("T")[0];        
-    
+    if (modifyEmployee.dob){
+          modifyEmployee.dob = modifyEmployee.dob.toISOString().split("T")[0];        
+    }
+
      res.render('pages/addEmployee.twig',{
       employee : modifyEmployee,
       errorRequest: req.session.errorRequest,
       company: req.session.company
     })
+}
+
+// Déconnecte l'employé en détruisant la session et redirige vers la page de connexion
+exports.employeeLogout = async (req,res)=>{
+    req.session.destroy()
+   res.redirect('/employeeLogin'); 
 }

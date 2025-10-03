@@ -6,8 +6,10 @@ const authGuard = require("../middleware/services/authguard");
 employeeRouter.get('/addEmployee',authGuard, employeeController.displayAddEmployee);
 employeeRouter.post('/addEmployee',authGuard,employeeController.postEmployee);
 
-employeeRouter.get('/employeeLogin',authGuard,employeeController.displayEmployeeLogin);
-employeeRouter.post('/employeeLogin',authGuard, employeeController.login);
+employeeRouter.get('/employeeLogin',employeeController.displayEmployeeLogin);
+employeeRouter.post('/employeeLogin',employeeController.login);
+employeeRouter.get("/employeeLogout", employeeController.employeeLogout);
+
 
 employeeRouter.post('/employeeList', authGuard, employeeController.treatEmployeeList);
 

@@ -1,0 +1,55 @@
+{% extends "/layouts/base.twig" %}
+
+{% block style %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
+{% endblock %}
+
+{% block main %}
+<main>
+{% set disponible = 0 %}
+{% set assigne = 0 %}
+{% set reparation = 0 %}
+{% set retire = 0 %}
+
+  <section>
+   
+    <div>
+       
+        <div>
+            <h2>Bienvenue {{employee.firstName}} {{employee.lastName}} - {{employee.company.companyName}}</h2>
+            <h2>{{ title }}</h2>
+        </div>
+        <div>
+              <div id="wrapper">
+                  <div id="employeeTable">
+                    <table>
+                      <tr>
+                          <th>Ordinateur</th>
+                          <th>MAC</th>
+                          <th>Statut</th>
+                          <th>Employé</th>
+                      </tr>
+                      <article>
+                          <tr class="employeeLine">
+                            {% if not employee.computer %}
+                            <td colspan=100%><h2>Aucun ordinateur n'a été attribué.</h2></td>
+                            {% else %}
+                              <td>{{employee.computer.computerTitle}}</td>
+                              <td>{{employee.computer.addressMac}}</td>
+                              <td>{{employee.computer.status}}</td>
+                              <td>{{employee.id}}</td>
+                            {% endif %}
+                          </tr>
+                          </article>
+                      </table>
+                  </div>
+                  {% if employee.computer %}
+                  <a href="/" class="button" id="btnAlert">Signal panne</a>
+                  {% endif %}
+                <div>
+            </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

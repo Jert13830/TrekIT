@@ -217,17 +217,23 @@ exports.updateCompany = async(req,res)=>{
           const data = {};
 
           if (req.body.password && req.body.password.trim() !== "") {
-            data.companyName = req.body.companyName;
-            data.siret = req.body.siret;
-            const hashedPassword = bcrypt.hashSync(req.body.password, 12);
-            data.password = hashedPassword;
-            data.directorName = req.body.directorName;
+
+              if (req.body.password !== req.body.confirmPassword) {
+              
+                  return  res.redirect("/updateCompany/"+req.params.id, {
+                  confirmError: "Mot de passe non correspondant"});
+              }
+              else {
+                     const hashedPassword = bcrypt.hashSync(req.body.password, 12);
+                     data.password = hashedPassword;
+              }
+
           }
-          else{
+         
              data.companyName = req.body.companyName;
              data.siret = req.body.siret;
              data.directorName = req.body.directorName;
-          }
+          
 
         const companyUpdated = await prisma.company.update({
             where: {
@@ -241,8 +247,13 @@ exports.updateCompany = async(req,res)=>{
             company:req.session.company, // Pass company data to the template
         });
     } catch (error) {
-        
-        req.session.errorRequest = "La modification du profil de l'entreprise n'a pas abouti."
-        res.redirect("/displayDashboard")
+
+        if (error.code === 'P2002') {
+          req.session.errorRequest = "Siret déjà utiliséT"
+
+         } else {
+          req.session.errorRequest = "La modification du profil de l'entreprise n'a pas abouti."
+         }
+            res.redirect("/updateCompany")
     }
 }
