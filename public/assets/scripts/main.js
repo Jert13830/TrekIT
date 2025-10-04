@@ -3,7 +3,8 @@
   const passwordInput = document.querySelector("#password");
   const confirmPasswordInput = document.querySelector("#confirmPassword");
   const userLogo =  document.querySelector("#userLogo");
-
+  //Employee alert button
+  const btnSignalAlert = document.querySelector("#bigButtonlAlert");
 
   toggleBtn.addEventListener("click", () => {
     toggleBtn.classList.toggle("active");
@@ -93,4 +94,15 @@ function renderPieChart(canvasId) {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderPieChart("myChart");
+});
+
+
+//If Add recipe button is clicked
+btnSignalAlert.addEventListener('click', function () {
+    console.log("Calling dialog");
+    addAlertDialog.showModal();
+});
+
+document.getElementById("btnCancel").addEventListener("click", () => {
+    document.getElementById("addAlertDialog").close();
 });

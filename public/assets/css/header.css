@@ -176,7 +176,7 @@ nav ul li a {
     justify-content: center;
     align-items: center;
     transition: right 0.3s ease;
-    border-radius: 10px;
+    border-radius: 8px;
     z-index: 15;
   }
 

@@ -45,11 +45,49 @@
                       </table>
                   </div>
                   {% if employee.computer %}
-                  <a href="/" class="button" id="btnAlert">Signal panne</a>
+                  <button id="bigButtonlAlert" class="btnAlert">Signal panner</botton>
                   {% endif %}
                 <div>
             </div>
     </div>
   </section>
+  <section id="sectionAlert">
+        <dialog id="addAlertDialog">
+            <form method="dialog" id="newAlertForm">
+                <div id="addAlertFormDiv">
+                <div class="formInput">
+                    <label for="macAddress">Code d'identification de l'ordinateur<br>(adresse MAC)</label>
+                    <input type="text" id="macAddress" name="macAddress" value={{employee.computer.addressMac}} disabled>
+                </div>
+                 <div class="formInput">
+                 <label for="employeeId">Code d'identification de l'employé</label>
+                    <input type="text" id="employeeId" name"employeeId" value={{employee.id}} disabled>
+                 </div>   
+                    <div>
+                        <div class="formInput">
+                        <label for="firstName">Prénom</label>
+                        <input type="text" id="firstName" name="firstName" value={{employee.firstName}} disabled>
+                        </div>
+                        <div class="formInput">
+                        <label for="lastName">Nom</label>
+                           <input type="text" id="lastName" name="lastName" value={{employee.lastName}} disabled>
+                        </div>
+                    </div>
+                    <div class="formInput">
+                        <label for="alertDescription">Description du problème</label>
+                        <input type="text" placeholder="Brève description du problème" id="alertDescription" name="alertDescription">
+                    </div>
+
+                    <div id="btns">
+                        <div>
+                            <button class="btnAlert btnForm" id="btnSendAlert" type="submit">Envoyer</button>
+                        </div>
+                        <div>
+                            <button class="btnForm" type="button" id="btnCancel" value="cancel">Annuler</button>
+                        </div>
+                    </div>
+            </form>
+        </dialog>
+    </section>
 </main>
 {% endblock %}

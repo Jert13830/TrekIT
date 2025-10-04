@@ -97,11 +97,7 @@ a.button {
      border: 1px #0d4bf0 solid;
     background: #2563eb;
     color : #F9FAFB;
-    border-radius: 10px;
-}
-
-.btnForm:hover{
-    color : #22C55E;
+    border-radius: 5px;
 }
 
 #computerStatusPieChart{
@@ -109,6 +105,125 @@ a.button {
   max-width:600px
   
 }
+
+.formInput {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; 
+}
+
+.formInput label {
+    min-width: max-content; 
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #4b5563;
+}
+
+.formInput input {
+    box-sizing: border-box;
+    width: 100%; 
+    height: 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: 1px solid #d7dcdf;
+}
+
+.btnForm{
+    width:100%;
+    height: 2rem;
+    color:#F9FAFB;
+    border-radius: 5px;
+
+}
+
+#btnCancel{
+  background-color:#2563eb ;
+  border: 1px #0d4bf0 solid;
+}
+
+#btnCancel:hover{
+  background-color:#3c75f2 ;
+}
+
+
+#btns{
+  margin-top: 10px;
+  display:flex;
+  gap:10px;
+}
+
+#bigButtonlAlert{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  text-align: center; 
+  padding: 10px 20px;
+  
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btnAlert{
+  color: #F9FAFB;   
+  background-color: #900;
+}
+
+.btnAlert:hover{
+  background-color: rgb(188, 36, 36);
+}
+
+dialog {
+  background-color: #F9FAFB;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  outline: none;
+  
+}
+
+dialog[open] {
+
+  all: unset;            
+  position: fixed;       
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: #F9FAFB;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: stretch;
+
+  max-width: 90%;  
+  width: 40%;    
+  outline: none;
+  border: none;
+}
+
+dialog::backdrop {
+  background: rgba(0,0,0,0.4);
+}
+
+
+addAlertDialog{
+  border:0;
+  border-radius: 8px;
+}
+
+@media (max-width: 1060px) {
+dialog[open] {
+
+  width: 50%;    
+}
+
+}
+
 
 @media (max-width: 830px) {
     body{
@@ -128,21 +243,18 @@ a.button {
     h2{
       text-align: center;
     }
+
+    dialog[open] {
+
+        width: 70%;    
+    }
 }
 
-#btnAlert{
-  color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  text-align: center; 
-  padding: 10px 20px;
-  background-color: #900;
-  text-decoration: none;
-  border-radius: 6px;
-}
+@media (max-width: 610px) {
 
 
-#btnAlert:hover{
-  background-color: rgb(188, 36, 36);
+    dialog[open] {
+
+        width: 90%;    
+    }
 }
