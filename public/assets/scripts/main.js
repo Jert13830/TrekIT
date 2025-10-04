@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //If Add recipe button is clicked
 btnSignalAlert.addEventListener('click', function () {
-    console.log("Calling dialog");
     addAlertDialog.showModal();
 });
 

@@ -1,0 +1,54 @@
+{% extends "/layouts/base.twig" %}
+
+{% block style %}
+  <link rel="stylesheet" href="/assets/css/listEmployees.css">
+{% endblock %}
+
+{% block main %}
+<main>
+  <section>
+   
+    <div>
+       
+       <div>
+            <h2>{{ title }} - {{company.companyName}}</h2>
+        </div>
+
+        <div id="employeeTable">
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Ordinateur</th>
+                    <th>MAC</th>
+                    <th>Déclaré</th>
+                    <th>Panne</th>
+                    <th>Employé</th>
+                    <th>Coût</th>
+                    <th>Action</th>
+                </tr>   
+                 {% for computer in computers %}
+                    {% for fault in computer.faults %}
+                        <tr class="employeeLine">
+                            <td>{{ computer.id }}</td>
+                            <td>{{ computer.computerTitle }}</td>
+                             <td>{{ computer.addressMac }}</td>
+                            <td>{{ fault.faultStartDate|date("d/m/Y") }}</td>
+                            <td>{{ fault.faultDescription }}</td>
+                            <td>{{ fault.employeeId }}</td>
+                            <td><input type="number" name="repairCost" id="repairCost" placeholder="1.0" step="0.01" min="0" max="10000"></td>
+                            <td> 
+                                <form method="post" action="/showCompanyFaults">
+                                    <button class="btnForm" id="btnSolved" name="buttons" value="solved-{{ fault.id }}">
+                                        Résolu
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

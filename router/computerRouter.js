@@ -17,6 +17,8 @@ computerRouter.get("/removeComputer/:id",authGuard , computerController.removeCo
 computerRouter.get("/updateComputer/:id", authGuard, computerController.displayUpdate);
 computerRouter.post("/updateComputer/:id" , authGuard , computerController.updateComputer);
 
+computerRouter.get('/reportedFaults', authGuard, computerController.reportComputerFaults);
+
 
 module.exports = computerRouter;
 

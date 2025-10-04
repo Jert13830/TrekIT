@@ -257,3 +257,33 @@ exports.updateCompany = async(req,res)=>{
             res.redirect("/updateCompany")
     }
 }
+
+exports.displayComputerFaults = async (req, res) => {
+  
+  try {
+    const company = await prisma.company.findUnique({
+    where: { id: req.session.company.id },
+    include: { 
+      computers: { 
+        include: { 
+          faults: { 
+            where: { faultEndDate: null }
+          } 
+        } 
+      }
+    }
+  });
+
+    res.render('pages/listFaults.twig', {
+      title: 'Liste des pannes informatiques',
+      company: company,
+      computers: company.computers
+    });
+
+    console.log(company.computers);
+
+  } catch (error) {
+    console.error('Liste des pannes informatiques:', error);
+    res.redirect('/dashboard');
+  }
+};

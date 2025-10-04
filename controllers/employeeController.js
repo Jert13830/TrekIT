@@ -73,8 +73,6 @@ exports.postEmployee = async (req, res) => {
         confirmError: "Mot de passe non correspondant",
       });
     }
-
-    console.log(req.body)
     
     const employee = await prisma.employee.create({
       data: {
@@ -235,4 +233,40 @@ exports.displayUpdate = async(req,res)=>{
 exports.employeeLogout = async (req,res)=>{
     req.session.destroy()
    res.redirect('/employeeLogin'); 
+}
+
+exports.employeeReportedFaults = async (req, res) => {
+  const employeeFaults = await prisma.employee.findUnique({
+          where: { 
+                    id: parseInt(req.params.id)
+                 },
+          include: { faults: true },
+        })
+}
+
+exports.employeeReportFault = async (req, res) => {
+  try{
+    const data = {};
+    data.faultDescription = req.body.faultDescription,
+    data.faultStartDate= new Date(),
+    data.computer= {
+      connect: { id: req.session.employee.computer.id }      
+    },
+    data.reportedBy= {
+      connect: { id: req.session.employee.id }       
+    }
+  
+
+  const employeeFaults = await prisma.fault.create({
+        data
+      })
+
+       res.render('pages/employeeDashboard.twig', {
+          employee : req.session.employee
+        });
+    }
+  catch (error) {
+        req.session.errorRequest = "La panne n'a pas été enregistrée."
+        res.redirect("/displayHome")
+    }
 }

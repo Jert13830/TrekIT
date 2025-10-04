@@ -1,0 +1,15 @@
+model Fault {
+  id               Int       @id @default(autoincrement())
+  faultDescription String    @db.VarChar(255)
+  faultStartDate   DateTime
+  faultEndDate     DateTime?
+  cost             Decimal?   @db.Decimal(10, 2)
+
+  // Relation to Computer (many faults per computer)
+  computer   Computer @relation(fields: [computerId], references: [id])
+  computerId Int
+
+  // Relation to Employee (many faults per employee)
+  reportedBy   Employee @relation(fields: [employeeId], references: [id])
+  employeeId   Int
+}

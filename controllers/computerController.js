@@ -191,3 +191,12 @@ exports.assignComputer = async (req, res) => {
     res.redirect("/assignComputer");
   }
 };
+
+exports.reportComputerFaults = async (req, res) => {
+  const computerFaults = await prisma.computer.findUnique({
+          where: { 
+                    id: parseInt(req.params.id)
+                 },
+          include: { faults: true },
+        })
+}

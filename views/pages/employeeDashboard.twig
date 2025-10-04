@@ -53,8 +53,13 @@
   </section>
   <section id="sectionAlert">
         <dialog id="addAlertDialog">
-            <form method="dialog" id="newAlertForm">
+            <form action="/employReportedFaults" method="post" id="newAlertForm">
                 <div id="addAlertFormDiv">
+
+                <div class="formInput">
+                    <label for="computerId">Ordinateur N°</label>
+                    <input type="text" id="computerId" name="computerId" value={{employee.computer.id}} disabled>
+                </div>
                 <div class="formInput">
                     <label for="macAddress">Code d'identification de l'ordinateur<br>(adresse MAC)</label>
                     <input type="text" id="macAddress" name="macAddress" value={{employee.computer.addressMac}} disabled>
@@ -74,8 +79,8 @@
                         </div>
                     </div>
                     <div class="formInput">
-                        <label for="alertDescription">Description du problème</label>
-                        <input type="text" placeholder="Brève description du problème" id="alertDescription" name="alertDescription">
+                        <label for="faultDescription">Description du problème</label>
+                        <input type="text" placeholder="Brève description du problème" id="faultDescription" name="faultDescription">
                     </div>
 
                     <div id="btns">
