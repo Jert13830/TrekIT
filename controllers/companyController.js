@@ -30,31 +30,40 @@ exports.displayLogin = async (req,res)=>{
   })
 }
 
+
+
+
+
 exports.postCompany = async (req, res) => {
   try {
     // Verify passwords match
-    if (req.body.password !== req.body.confirmPassword) {
+    if (req.body.password == req.body.confirmPassword) {
+      
+        // Create a new company
+        const company = await prisma.company.create({
+            data: {
+              companyName: req.body.companyName,
+              siret: req.body.siret.replace(/\s/g, ''), // Remove spaces
+              password: req.body.password, // Handled by hashExtension
+              directorName: req.body.directorName || null,
+              },
+          });
+
+        // Redirect to login on success
+        console.log("Everything OK");
+        res.redirect('/login');
+    }
+    else {
+      console.log("Mismatch email");
       const error = new Error("Mot de passe non correspondant");
       error.confirmPassword = error.message; // Match template field name
       throw error;
     }
 
-    // Create a new company
-    const company = await prisma.company.create({
-      data: {
-        companyName: req.body.companyName,
-        siret: req.body.siret.replace(/\s/g, ''), // Remove spaces
-        password: req.body.password, // Handled by hashExtension
-        directorName: req.body.directorName || null,
-      },
-    });
-
-    // Redirect to login on success
-    res.redirect('/login');
-
   } catch (error) {
    
     if (error.code === 'P2002') {
+      console.log("Siret exists");
       // Unique constraint violation (duplicate SIRET)
       return res.render('pages/companySubscribe.twig', {
         title: "Inscription - Entreprise",
@@ -63,13 +72,16 @@ exports.postCompany = async (req, res) => {
         companyName: req.body.companyName,
         directorName: req.body.directorName,
         confirmPassword: req.body.confirmPassword,
-      });
-    } else {
+      })
+      
+    } 
+    else 
+      {
+        console.log("Another error");
       // Other errors (validation or password mismatch)
-      const errorDetails = error.confirmPassword
-        ? { confirmPassword: error.confirmPassword }
-        : { siret: error.details || 'Une erreur est survenue lors de l\'inscription' };
-      res.render('pages/companySubscribe.twig', {
+      const errorDetails = "Mot de passe non correspondant"
+      
+        res.render('pages/companySubscribe.twig', {
         title: "Inscription - Entreprise",
         error: errorDetails,
         duplicateSiret: null,
@@ -80,6 +92,11 @@ exports.postCompany = async (req, res) => {
     }
   }
 };
+
+
+
+
+
 
 exports.login = async (req,res)=>{
     try {
@@ -103,7 +120,7 @@ exports.login = async (req,res)=>{
                 res.redirect('/dashboard')
             } else {
                 // if the password is incorrect show an error
-                throw {password: "mauvais mot de passe"}
+                throw {password: "Mauvais mot de passe"}
             }
         } else {
             // If the company does not exist
@@ -229,7 +246,7 @@ exports.updateCompany = async(req,res)=>{
               if (req.body.password !== req.body.confirmPassword) {
               
                   return  res.redirect("/updateCompany/"+req.params.id, {
-                  confirmError: "Mot de passe non correspondant"});
+                  confirmPassword: "Mot de passe non correspondant"});
               }
               else {
                      const hashedPassword = bcrypt.hashSync(req.body.password, 12);

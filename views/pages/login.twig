@@ -34,6 +34,9 @@
             placeholder="123 456 789 01234"
             value="{{ siret | default('') }}"
           >
+          {% if error.siret %}
+            <p class="error">{{ error.siret }}</p>
+          {% endif %}
           {% if duplicateSiret %}
             <p class="error">{{ duplicateSiret }}</p>
           {% endif %}
@@ -49,6 +52,9 @@
             placeholder="6+ caractères, 1 lettre, 1 chiffre"
             autocomplete="current-password"
           >
+          {% if error.password %}
+        <p class="error">{{ error.password }}</p>
+      {% endif %}
         </div>
         <div>
           <button type="submit" id="loginSubmit" name="loginSubmit">Connectez-vous</button>

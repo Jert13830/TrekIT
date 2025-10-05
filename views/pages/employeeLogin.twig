@@ -26,8 +26,8 @@
         <div class="loginFormInput">
          <label for="email">Email</label>
 					<input type="email" id="email" name="email" required>
-					{% if errors.email %}
-						<p>{{errors.email}}</p>
+					{% if error.email %}
+						<p>{{error.email}}</p>
 					{% endif %}
         </div>
         <div class="loginFormInput">
@@ -41,6 +41,9 @@
             placeholder="6+ caractères, 1 lettre, 1 chiffre"
             autocomplete="current-password"
           >
+          {% if error.password %}
+        <p class="error">{{ error.password }}</p>
+      {% endif %}
         </div>
         <div>
           <button type="submit" id="loginSubmit" name="loginSubmit">Connectez-vous</button>

@@ -68,6 +68,8 @@ exports.postComputer = async (req, res) => {
             title: "Inscription - Ordinateur",
             error: null,
             duplicateMAC: "MAC adresse déjà utilisé",
+            addressMac:"MAC adresse déjà utilisé",
+            
             companyName: req.body.companyName,
             });
         } else{

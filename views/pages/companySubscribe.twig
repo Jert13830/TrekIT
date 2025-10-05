@@ -44,9 +44,11 @@
             placeholder="123 456 789 01234"
             value="{{ company.siret | default('') }}"
           >
+          
           {% if error.siret %}
             <p class="error">{{ error.siret }}</p>
           {% endif %}
+
           {% if duplicateSiret %}
             <p class="error">{{ duplicateSiret }}</p>
           {% endif %}

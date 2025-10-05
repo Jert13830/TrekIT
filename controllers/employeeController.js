@@ -66,89 +66,94 @@ exports.displayEmployeeLogin = async (req,res)=>{
 }
 
 exports.postEmployee = async (req, res) => {
+try {
+   if (req.body.password !== req.body.confirmPassword) {
+     return res.render("pages/addEmployee.twig", {
+       error: { confirmPassword: "Mot de passe non correspondant" },
+       company:req.body.company,
+       name: req.body.name,
+       email: req.body.email,
+     });
+   }
+   
+   const employee = await prisma.employee.create({
+     data: {
+       email: req.body.email,
+       password: req.body.password, 
+       firstName: req.body.firstName,
+       lastName: req.body.lastName,
+       dob: req.body.dob ? new Date(req.body.dob) : null,
+       gender: req.body.gender,
+       companyId: req.session.company?.id,
+     },
+   });
 
-  try {
-    if (req.body.password !== req.body.confirmPassword) {
-      return res.render("pages/addEmployee.twig", {
-        confirmError: "Mot de passe non correspondant",
-      });
-    }
-    
-    const employee = await prisma.employee.create({
-      data: {
-        email: req.body.email,
-        password: req.body.password, 
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        dob: req.body.dob ? new Date(req.body.dob) : null,
-        gender: req.body.gender,
-        companyId: req.session.company?.id,
-      },
-    });
+   /**********SEND EMAIL TO CONFIRM ACCOUNT **********************/
+   await sendEmailConfirmAccount(
+     employee.email,
+     "Confirm your account",
+     `Hello ${employee.firstName}, 
+     
+     Please confirm your account. 
+     
+     The password is ${req.body.password}
 
-    /**********SEND EMAIL TO CONFIRM ACCOUNT **********************/
-    await sendEmailConfirmAccount(
-      employee.email,
-      "Confirm your account",
-      `Hello ${employee.firstName}, 
-      
-      Please confirm your account. 
-      
-      The password is ${req.body.password}
+     The team TrekIT`
+   );
 
-      The team TrekIT`
-    );
+   /***********************************************************/
 
-    /***********************************************************/
-
-    res.redirect("/employees");
-  } catch (error) {
-    console.log(error)
-    if (error.code === "P2002") {
-      res.render("pages/addEmployee.twig", {
-        duplicateEmail: "Email déjà utilisé",
-      });
-    } else {
-      res.render("pages/addEmployee.twig", {
-        error: error.message || "Une erreur est survenue",
-      });
-    }
-  }
+   res.redirect("/employees");
+ } catch (error) {
+   console.log(error)
+   if (error.code === "P2002") {
+     res.render("pages/addEmployee.twig", {
+       duplicateEmail: "Email déjà utilisé",
+       email:"Erreur email",
+     });
+   } else {
+     res.render("pages/addEmployee.twig", {
+       error: error.message || "Une erreur est survenue",
+     });
+   }
+ }
 };
 
-exports.login = async (req,res)=>{
-    try {
 
-        // Recherche l'employé en base par son email
-        const employee = await prisma.employee.findUnique({
-            where: {
-                email: req.body.email
-            },
-             include: { company: true, computer: true, },
-        });
-        
-        if (employee) {
-            // Si l'utilisateur existe, on compare le mot de passe fourni avec le hash stocké
-            if (bcrypt.compareSync(req.body.password,employee.password)) {
-                // Si le mot de passe est correct, on stocke l'employé dans la session
-                req.session.employee = employee
-                // Redirige vers la page d'accueil
-                res.redirect('/homepage')
-            } else {
-                // Si le mot de passe est incorrect, on lève une erreur personnalisée
-                throw {password: "mauvais mot de passe"}
-            }
-        } else {
-            // Si l'utilisateur n'existe pas, on lève une erreur personnalisée
-            throw {email: "Cet ustilisateur n'est pas enregistrer"}
-        }
-    } catch (error) {
-        // Affiche les erreurs dans la vue login
-        res.render("pages/employeeLogin.twig", {
-            error:error
-        })
-    }
+exports.login = async (req,res)=>{
+   try {
+
+       // Recherche l'employé en base par son email
+       const employee = await prisma.employee.findUnique({
+           where: {
+               email: req.body.email
+           },
+            include: { company: true, computer: true, },
+       });
+       
+       if (employee) {
+           // Si l'utilisateur existe, on compare le mot de passe fourni avec le hash stocké
+           if (bcrypt.compareSync(req.body.password,employee.password)) {
+               // Si le mot de passe est correct, on stocke l'employé dans la session
+               req.session.employee = employee
+               // Redirige vers la page d'accueil
+               res.redirect('/homepage')
+           } else {
+               // Si le mot de passe est incorrect, on lève une erreur personnalisée
+               throw {password: "Mauvais mot de passe"}
+           }
+       } else {
+           // Si l'utilisateur n'existe pas, on lève une erreur personnalisée
+           throw {email: "Cet ustilisateur n'est pas enregistrer"}
+       }
+   } catch (error) {
+       // Affiche les erreurs dans la vue login
+       res.render("pages/employeeLogin.twig", {
+           error:error
+       })
+   }
 }
+
 
 // controllers/employeeController.js
 exports.displayHome = async (req, res) => {
@@ -174,7 +179,7 @@ exports.updateEmployee = async(req,res)=>{
                if (req.body.password !== req.body.confirmPassword) {
 
                   return  res.redirect("/updateEmployee/"+req.params.id, {
-                       confirmError: "Mot de passe non correspondant",
+                       confirmPassword: "Mot de passe non correspondant",
                    });
                }
                else{
@@ -204,7 +209,7 @@ exports.updateEmployee = async(req,res)=>{
         
     } 
     catch (error) {
-        req.session.errorRequest = "LLa modification apportée à l'employé a echoué"
+        req.session.errorRequest = "La modification apportée à l'employé a echoué"
         //res.redirect("/displayUpdate/"+req.params.id)
         res.redirect("/updateEmployee/"+req.params.id)
     }

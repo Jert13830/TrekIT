@@ -43,8 +43,8 @@
         <div class="employeeFormInput">
 					<label for="email">Email</label>
 					<input type="email" id="email" name="email" value="{{ employee.email | default('') }}" required>
-					{% if errors.email %}
-						<p>{{errors.email}}</p>
+					{% if error.email %}
+						<p>{{error.email}}</p>
 					{% endif %}
 					{% if duplicateEmail %}
 						<p>{{duplicateEmail}}</p>
