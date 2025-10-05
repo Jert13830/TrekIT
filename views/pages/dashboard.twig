@@ -11,7 +11,7 @@
 {% set assigne = 0 %}
 {% set reparation = 0 %}
 {% set retire = 0 %}
-
+{% set errors = 0 %}
   <section>
    
     <div>
@@ -47,6 +47,11 @@
                               <td>{{computer.employeeId}}</td>
                           </tr>
                           </article>
+                              {% for fault in computer.faults %}
+                                  
+                                      {% set errors = errors + 1 %}
+                                  
+                              {% endfor %}
                       {% endfor %}
                       </table>
                   </div>
@@ -59,9 +64,11 @@
                               </canvas>
                             </div>
 
-                            <div class="chartBox">
-                              <div id="computerErrorCircle">
-                                Hello
+                            <div class="chartBox" id="checkErrors" onclick="location.href='/showCompanyFaults';">
+                            
+                                    <div class="computerErrorCircle computerErrorText {% if errors == 0 %} hidden {% endif %}">{{ errors }} Errors</div>
+                                    <div class="computerNoErrorCircle computerErrorText {% if errors != 0 %} hidden {% endif %}">0 Errors</div>
+                               
                             </div>
                      </div>
                 </div>

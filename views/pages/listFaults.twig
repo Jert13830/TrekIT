@@ -36,17 +36,17 @@
                             <td>{{ fault.faultStartDate|date("d/m/Y") }}</td>
                             <td>{{ fault.faultDescription }}</td>
                             <td>{{ fault.employeeId }}</td>
+                            <form method="post" action="/showCompanyFaults">
                             <td><input type="number" name="repairCost" id="repairCost" placeholder="1.0" step="0.01" min="0" max="10000"></td>
                             <td> 
-                                <form method="post" action="/showCompanyFaults">
                                     <button class="btnForm" id="btnSolved" name="buttons" value="solved-{{ fault.id }}">
                                         Résolu
                                     </button>
-                                </form>
                             </td>
+                              </form>
                         </tr>
                     {% endfor %}
-                    {% if ('now'|date('Y') - computer.purchaseDate|date('Y')) is divisible by(2) and  computer.purchaseDate|date('Y') != 2025%}
+                    {% if ('now'|date('Y') - computer.purchaseDate|date('Y')) is divisible by(2) and  computer.purchaseDate|date('Y') != 'now'|date('Y') %}
                         {% set arrayOfUpComingControls = arrayOfUpComingControls|merge([computer]) %}
                     {% endif %}
                 {% endfor %}

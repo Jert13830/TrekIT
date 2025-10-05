@@ -20,6 +20,8 @@ companyRouter.post("/updateCompany/:id" , authGuard , companyController.updateCo
 companyRouter.get("/showCompanyFaults", authGuard, companyController.displayComputerFaults);
 companyRouter.post("/showCompanyFaults", authGuard, companyController.resolveComputerFaults);
 
+companyRouter.get("/showCompanyReports", authGuard, companyController.displayReports);
+
 module.exports = companyRouter;
 
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+    {% block style %}
+        <link rel="stylesheet" href="/assets/css/style.css">
+    {% endblock %}
+    
+    {% block title %}{% endblock %}
+</head>
+<body>
+  <header>
+  <!-- if Company session is set show navbar -->
+     {% if company or employee %}
+         {% include "/partials/header.twig" %}
+      {% endif %}
+  </header>
+
+  <main id="pageContent">
+  {% block main %}
+    {% set year = "now"|date("Y") %}
+    {% set costs = {} %}
+    {% set repairs = {} %}
+
+    {% for computer in company.computers %}
+        {% for fault in computer.faults %}
+            {% if fault.faultStartDate|date("Y") == year %}
+                {% set month = fault.faultStartDate|date("m") %}
+
+            {# Costs #}
+            {% set currentCost = costs[month]|default(0) %}
+            {% set costs = costs|merge({ (month): currentCost + fault.cost }) %}
+
+            {# Repairs #}
+            {% set currentRepairs = repairs[month]|default(0) %}
+            {% set repairs = repairs|merge({ (month): currentRepairs + 1 }) %}
+            
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+    <pre>
+       {% for i in 1..12 %}
+          {{ costs[i]|default(0) }}
+          {{ repairs[i]|default(0) }}
+      {% endfor %}
+
+{% endblock %}
+  </main>
+
+  <footer>
+    {% include "/partials/footer.twig" %}
+  </footer>
+
+   
+  {% block scripts %}
+      <script src="/assets/scripts/main.js"></script>
+{% endblock %}
+    
+  
+</body>
+</html>

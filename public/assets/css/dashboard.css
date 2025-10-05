@@ -113,7 +113,7 @@ a.button {
   justify-content: center;
 }
 
-#computerErrorCircle {
+.computerErrorCircle {
   width: 80%;
   height: 80%;
   border-radius: 50%;
@@ -123,6 +123,89 @@ a.button {
   justify-content: center;
   font-weight: bold;
   margin: auto;
+  position: relative;
+}
+
+.computerErrorText {
+  font-size: 2rem;
+  font-weight:bold;
+  color:#4b5563;
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg; /*default setting*/
+  inherits:false; /*default setting*/
+}
+
+.computerErrorCircle::after ,.computerErrorCircle::before{
+  content: '';
+  position: absolute;
+  height: 100%;
+  width:100%;
+  background-image: conic-gradient(from var(--angle),
+  #ff1e1e,
+  #ffcc00,
+  #ff6600,
+  #ff1e1e,
+  #ff6600,
+  #ffcc00,
+  #ff1e1e
+);
+  border-radius: 50%;
+  z-index: -1;
+  padding : 10px;
+  animation:spin 3s linear infinite;
+}
+
+.computerErrorCircle::before{
+  filter:blur(1rem);
+  opacity: 0.5;
+}
+
+
+.computerNoErrorCircle {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background-color: #F9FAFB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin: auto;
+  position: relative;
+}
+
+.computerNoErrorCircle::after ,.computerNoErrorCircle::before{
+  content: '';
+  position: absolute;
+  height: 100%;
+  width:100%;
+  background-image: conic-gradient(from var(--angle),
+  #00e676,
+  #00bcd4,
+  #2196f3,
+  #00e676
+);
+  border-radius: 50%;
+  z-index: -1;
+  padding : 10px;
+  animation:spin 3s linear infinite;
+}
+
+.computerNoErrorCircle::before{
+  filter:blur(1rem);
+  opacity: 0.5;
+}
+
+@keyframes spin{
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
 }
 
 .formInput {
@@ -241,6 +324,14 @@ addAlertDialog{
   flex-direction: column; 
   align-items: center;  
   gap: 40px;
+}
+
+#checkErrors{
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
 }
 
 @media (max-width: 1060px) {

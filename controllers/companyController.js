@@ -129,7 +129,15 @@ exports.displayDashboard = async (req, res) => {
 
 const company = await prisma.company.findUnique({
              where: { id: req.session.company.id },
-             include: { employees: true, computers: true },
+             include: { employees: true,
+              computers: { 
+                    include: { 
+                    faults: { 
+                         where: { faultEndDate: null }
+                        } 
+                      }
+                    }
+                  }
         });
 
         res.render('pages/dashboard.twig', {
@@ -296,7 +304,7 @@ exports.resolveComputerFaults = async (req, res) => {
     const data = {}
 
     data.faultEndDate = new Date(),
-    data.cost = req.body.cost;
+    data.cost = req.body.repairCost;
 
     try {
         const faultEnd = await prisma.fault.update({
@@ -316,3 +324,28 @@ exports.resolveComputerFaults = async (req, res) => {
     }
   }
 }
+
+exports.displayReports= async (req, res) => {
+    try {
+            const company = await prisma.company.findUnique({
+             where: { id: req.session.company.id },
+             include: { employees: true,
+              computers: { 
+                    include: { 
+                    faults: true,
+                      }
+                    }
+                  }
+        });
+
+    
+
+        res.render('pages/reports.twig', {
+            title: 'Compte rendu',
+            company: company, // Pass company data to the template
+        });
+    } catch (error) {
+        //
+        res.redirect('/dashboard'); // Redirect to dashboard on error
+    }
+};
