@@ -6,6 +6,7 @@
 
 {% block main %}
 <main>
+<div id="tables">
   <section>
    
     <div>
@@ -13,7 +14,7 @@
        <div>
             <h2>{{ title }} - {{company.companyName}}</h2>
         </div>
-
+        {% set arrayOfUpComingControls = [] %} 
         <div id="employeeTable">
             <table>
                 <tr>
@@ -45,10 +46,43 @@
                             </td>
                         </tr>
                     {% endfor %}
+                    {% if ('now'|date('Y') - computer.purchaseDate|date('Y')) is divisible by(2) and  computer.purchaseDate|date('Y') != 2025%}
+                        {% set arrayOfUpComingControls = arrayOfUpComingControls|merge([computer]) %}
+                    {% endif %}
                 {% endfor %}
             </table>
         </div>
     </div>
   </section>
+  <section>
+    <div>
+        
+        <div>
+                <h2>Contrôle informatique à venir - {{company.companyName}}</h2>
+            </div>
+            
+            <div id="employeeTable">
+                <table>
+                    <tr>
+                        <th>Id</th>
+                        <th>Ordinateur</th>
+                        <th>MAC</th>
+                        <th>Acheté</th>
+                        <th>Employé</th>
+                    </tr>   
+                    {% for computer in arrayOfUpComingControls %}
+                            <tr class="employeeLine">
+                                <td>{{ computer.id }}</td>
+                                <td>{{ computer.computerTitle }}</td>
+                                <td>{{ computer.addressMac }}</td>
+                                <td>{{ computer.purchaseDate|date("d/m/Y") }}</td>
+                                <td>{{ computer.employeeId }}</td>
+                            </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </section>
+ </div>
 </main>
 {% endblock %}

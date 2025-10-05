@@ -69,6 +69,10 @@ main{
 
 }
 
+#addEmployeeSubmit:hover{
+    background-color:#3c75f2 ;
+}
+
 #formTitle{
     text-align: center;
     margin: 0;

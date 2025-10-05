@@ -68,6 +68,10 @@ body {
 
 }
 
+#companySubmit:hover{
+    background-color:#3c75f2 ;
+}
+
 #formTitle{
     text-align: center;
 }

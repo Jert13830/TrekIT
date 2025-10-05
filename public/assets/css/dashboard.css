@@ -100,10 +100,29 @@ a.button {
     border-radius: 5px;
 }
 
-#computerStatusPieChart{
-  width:100%;
-  max-width:600px
-  
+#computerStatusPieChart {
+  width: 100%;
+  height: 100%;
+}
+
+.chartBox {
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  align-items: center;
+  justify-content: center;
+}
+
+#computerErrorCircle {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background-color: #F9FAFB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin: auto;
 }
 
 .formInput {
@@ -214,6 +233,14 @@ dialog::backdrop {
 addAlertDialog{
   border:0;
   border-radius: 8px;
+}
+
+
+#chartsDiv {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;  
+  gap: 40px;
 }
 
 @media (max-width: 1060px) {

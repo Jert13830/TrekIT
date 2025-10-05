@@ -122,14 +122,12 @@ nav ul li a {
   background: #f9fafb;
 }
 
-/* Hover state (show with animation) */
 li:hover > .servicesList {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-/* Hover styles */
 #servicesList li a:hover {
   /*background: #40513B;*/
   color: #ffffff;

@@ -280,10 +280,39 @@ exports.displayComputerFaults = async (req, res) => {
       computers: company.computers
     });
 
-    console.log(company.computers);
-
   } catch (error) {
     console.error('Liste des pannes informatiques:', error);
     res.redirect('/dashboard');
   }
 };
+
+exports.resolveComputerFaults = async (req, res) => {
+    const action = req.body.buttons; 
+
+  if (action.startsWith("solved-")) {
+    let toModify = action.split("-")[1];
+    toModify = parseInt(toModify );
+   
+    const data = {}
+
+    data.faultEndDate = new Date(),
+    data.cost = req.body.cost;
+
+    try {
+        const faultEnd = await prisma.fault.update({
+            where: {
+                id: toModify
+            },
+            data 
+        })
+       
+         res.redirect("/showCompanyFaults")
+
+    } catch (error) {
+   
+        req.session.errorRequest = "La panne n'a pu être corrigée."
+        res.redirect("/showCompanyFaults")
+
+    }
+  }
+}

@@ -51,12 +51,20 @@
                       </table>
                   </div>
               
-                    <div>
-                          <canvas id="myChart" 
-                          data-labels='["Assigné","Réparation","Disponible","Retiré"]' 
-                          data-values='[{{ assigne }},{{ reparation }},{{ disponible }},{{ retire }}]'></canvas>
-                    </div>
-                <div>
+                    <div id="chartsDiv">
+                            <div class="chartBox">
+                              <canvas id="computerStatusPieChart "
+                                data-labels='["Assigné","Réparation","Disponible","Retiré"]'
+                                data-values='[{{ assigne }},{{ reparation }},{{ disponible }},{{ retire }}]'>
+                              </canvas>
+                            </div>
+
+                            <div class="chartBox">
+                              <div id="computerErrorCircle">
+                                Hello
+                            </div>
+                     </div>
+                </div>
             </div>
     </div>
   </section>

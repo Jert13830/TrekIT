@@ -93,7 +93,7 @@ function renderPieChart(canvasId) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderPieChart("myChart");
+  renderPieChart("computerStatusPieChart ");
 });
 
 

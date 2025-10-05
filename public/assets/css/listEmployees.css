@@ -101,9 +101,14 @@ a.button {
 }
 
 .btnForm:hover{
-    color : #22C55E;
+    background-color:#3c75f2 ;
 }
 
+#tables{
+  display: flex;
+  flex-direction: column;
+  gap:40px;
+}
 
 @media (max-width: 830px) {
     body{
